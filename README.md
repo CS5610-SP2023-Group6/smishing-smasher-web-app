@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Smishing Smasher
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![hackmd-github-sync-badge](https://hackmd.io/u4J6ZKOBRAWbGT93uNnrsQ/badge)](https://hackmd.io/u4J6ZKOBRAWbGT93uNnrsQ)
 
-## Available Scripts
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+1. [Overview](#Overview)
+2. [Database Structure](#Database-Structure)
+3. [Technical Specifications](#Technical-Specifications)
+4. [User Roles](#Manual)
+5. [Pages](#Demo)
+6. [Future Work](#Future-Work)
+7. [Acknowledgment](#Acknowledgment)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Overview
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Description
 
-### `npm test`
+Smishing Smasher is a web app for people to report SMS phishing. Users are welcome to report the suspicious text they received. All users could skim, filter and search the texts posted by all users at home page. Moreover, they could even react to these text posts by making comments and liking them.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### App Evaluation
+- **Name**: Smishing Smasher
+- **Type**: Web Application
+- **Category**: Information Sharing
+- **Mission**: Provide forum for people to share their experience of phishing SMS. Help people identify phishing texts and avoid frauds.
 
-### `npm run build`
+### Team Members
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Jihao Zhang**
+- **Bin Feng**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technical Specifications
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+TBD
 
-### `npm run eject`
+## User Roles:
+1. **Normal User**: Users are able to post suspicious text, endorse to others' posts, report false posts to Admin.
+2. **Administrator**: Admins are able to delete posts.
+3. **Owner**: Owners are able to assign admin.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Pages
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Home
+Show trending message(accoding to users endorsements, may show a map with red dots/show common scams accoring to their geographic locations/)
+Search bar: either through phone number or content of the message
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Login
+Users could input username and password in login page to login. After logged in, users are able to comment on other people's posts and create their own posts.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Signup
 
-## Learn More
+### Profile
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Normal User
+User can see all posts and comments they made on their profile, as well as the total endorsement they received,(which is their reputation, may have some honor system). Users are allowed to edit their posts.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Administrator
 
-### Code Splitting
+#### Owner
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### How to post
+Since the scam has already been posted, users need to search first. If they think they did not find the message, there will be a post button to post a new message.
+## Future Work
 
-### Analyzing the Bundle Size
+## Acknowledgement
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
