@@ -42,7 +42,7 @@ TBD
 ## Pages
 
 ### Home
-Show trending message(accoding to users endorsements, may show a map with red dots/show common scams accoring to their geographic locations/)
+Show index message(accoding to users endorsements, may show a map with red dots/show common scams accoring to their geographic locations/)
 Search bar: either through phone number or content of the message
 
 ### Login
