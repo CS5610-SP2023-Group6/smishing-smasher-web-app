@@ -8,7 +8,7 @@ import {ComponentPreviews, useInitial} from "./dev";
 import {Provider} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 import postsReducer from "./reducers/posts-reducer";
-
+import "./vendors/bootstrap/css/bootstrap.min.css"
 
 const store = configureStore(
     {reducer: {postsData: postsReducer}});

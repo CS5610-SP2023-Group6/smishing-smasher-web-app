@@ -5,6 +5,7 @@ import TrendingItem from "./home/trending/trending-item";
 
 import UserProfile from "./profile";
 
+
 function App() {
   return (
       <BrowserRouter>
