@@ -50,7 +50,7 @@ const TrendingList = () => {
             </h1>
             <ul>
                 {posts.map(post => (
-                    <li key={post.id}>{post.username}</li>
+                    <li key={post.id}>{post.text}</li>
                 ))}
             </ul>
         </div>

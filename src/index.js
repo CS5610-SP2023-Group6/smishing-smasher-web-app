@@ -8,6 +8,8 @@ import {ComponentPreviews, useInitial} from "./dev";
 import {Provider} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 import postsReducer from "./reducers/posts-reducer";
+
+
 const store = configureStore(
     {reducer: {postsData: postsReducer}});
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,7 +19,7 @@ root.render(
                     useInitialHook={useInitial}
         >
             <Provider store={store}>
-                <App />
+                <App/>
             </Provider>,
         </DevSupport>
     </React.StrictMode>

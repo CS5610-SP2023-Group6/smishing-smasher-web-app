@@ -3,6 +3,8 @@ import {Routes, Route} from "react-router";
 import Home from "./home";
 import TrendingItem from "./home/trending/trending-item";
 
+import UserProfile from "./profile";
+
 function App() {
   return (
       <BrowserRouter>
@@ -11,8 +13,8 @@ function App() {
 
             <Route index element={<Home/>}/>
               <Route path="/home" element={<Home/>}/>
-            {/*<Route path="/trending"*/}
-            {/*       element={<TrendingItem/>}/>*/}
+            <Route path="/user/:userId"
+                   element={<UserProfile/>}/>
             {/*<Route path="/tuiter/*"*/}
             {/*       element={<Tuiter/>}/>*/}
 
