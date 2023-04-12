@@ -34,6 +34,7 @@ const UserProfile = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
+    console.log("user",user.posts)
     // const pidList =
         return (
 

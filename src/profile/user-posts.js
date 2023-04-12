@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 
 const UserPost = (pidList) => {
+    console.log("userposts", pidList)
     const [posts, setPosts] = useState([]);
     // const { pid } = useParams();
 
