@@ -5,6 +5,7 @@ import TrendingItem from "./home/trending/trending-item";
 
 import UserProfile from "./profile";
 import PostDetail from "./post-detail";
+import Login from "./login";
 
 
 function App() {
@@ -18,11 +19,7 @@ function App() {
                     <Route path="/user/:userId"
                            element={<UserProfile/>}/>
                     <Route path="/post/:postId" element={<PostDetail/>}/>
-                    {/*<Route path="/tuiter/*"*/}
-                    {/*       element={<Tuiter/>}/>*/}
-
-                    {/*<Route path="/a7"*/}
-                    {/*       element={<Assignment7/>}/>*/}
+                    <Route path="/login" element={<Login/>} />
 
                 </Routes>
             </div>
