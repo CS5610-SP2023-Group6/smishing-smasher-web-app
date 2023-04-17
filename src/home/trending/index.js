@@ -43,16 +43,41 @@ const TrendingList = () => {
     return (
         <div>
             <h1>
-                Trending at{" "}
-                {location.latitude && location.longitude
-                    ? `(${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)})`
-                    : "your location"}
+                Trending at
             </h1>
-            <ul>
-                {posts.map(post => (
-                    <li key={post.id}>{post.text}</li>
-                ))}
-            </ul>
+
+            <div className="container">
+
+                <div className="row">
+                    <div className="col-md-4">
+                        <h2> Top smishing at <span className="text-danger">{" "}
+                            {location.latitude && location.longitude
+                                ? `(${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)})`
+                                : "your location"}</span></h2>
+                        <ol>
+                            {posts.map(post => (
+                                <li key={post.id}>{post.text} <span className="text-warning">{post.time}</span></li>
+                            ))}
+                        </ol>
+                    </div>
+                    <div className="col-md-4">
+                        <h2>Top smishing in <span className="text-danger"> USA</span></h2>
+                        <ol>
+                            {posts.map(post => (
+                                <li key={post.id}>{post.text} <span className="text-warning">{post.time}</span></li>
+                            ))}
+                        </ol>
+                    </div>
+                    <div className="col-md-4">
+
+                    </div>
+                </div>
+
+                <hr/>
+
+            </div>
+
+
         </div>
     );
 };

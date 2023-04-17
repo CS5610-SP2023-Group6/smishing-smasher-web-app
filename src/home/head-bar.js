@@ -1,29 +1,37 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const headBar = () => {
+const HeadBar = () => {
     return (
-
-        <div className="row">
-            <div className="col-9 position-relative float-start">
-                <button className="btn  rounded-pill ps-3 pe-3 fw-bold ">
-                    <Link to="/home">
-                        <img src="/images/logo.png" alt="logo"  height="50"/>
+        <div className="container">
+            <div className="row ">
+                <div className="col-6">
+                    <button className="btn rounded-pill ps-3 pe-3 fw-bold">
+                        <Link to="/home">
+                            <img src="/images/logo.png" alt="logo" height="50" />
+                        </Link>
+                    </button>
+                </div>
+                <div className="col float-end">
+                    <div className="btn-group">
+                    <Link to="/login" className="btn btn-light me-2">Login / Sign Up</Link>
+                    <Link to="/profile" className="btn btn-light me-2">
+                        Profile
                     </Link>
+                    <Link to="/history" className="btn btn-light me-2">
+                        History
+                    </Link>
+                    <Link to="/following" className="btn btn-light me-2">
+                        Following
+                    </Link>
+                    <Link to="/logout" className="btn btn-light me-2">
+                        Log Out
+                    </Link>
+                    </div>
+                </div>
 
-                </button>
-                {/*<i className="bi bi-search position-absolute*/}
-                {/*       wd-nudge-up"></i>*/}
-            {/*    TODO: move signup to right end*/}
-            </div>
-            <div className="col-3 position-relative float-end">
-                {/*TODO:onClick={tuitClickHandler}*/}
-                <button className="btn rounded-pill ps-3 pe-3 fw-bold " >
-                    <Link to="/login">Login / Sign Up</Link>
-                </button>
             </div>
         </div>
-
-
     );
 };
-export default headBar
+
+export default HeadBar;
