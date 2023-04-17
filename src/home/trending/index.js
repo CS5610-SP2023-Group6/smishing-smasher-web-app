@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { findPostsThunk } from "../../services/posts-thunks";
+import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {findPostsThunk} from "../../services/posts-thunks";
 
 const TrendingList = () => {
-    const { posts, loading, error } = useSelector(state => state.postsData);
+    const {posts, loading, error} = useSelector(state => state.postsData);
     const dispatch = useDispatch();
 
     const [location, setLocation] = useState({});
@@ -12,8 +12,8 @@ const TrendingList = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    const { latitude, longitude } = position.coords;
-                    setLocation({ latitude, longitude });
+                    const {latitude, longitude} = position.coords;
+                    setLocation({latitude, longitude});
                 },
                 (error) => {
                     console.error("Error retrieving user location:", error);
@@ -42,12 +42,12 @@ const TrendingList = () => {
 
     return (
         <div>
-            <h1>
-                Trending at
-            </h1>
+
 
             <div className="container">
-
+                <h1>
+                    Trending
+                </h1>
                 <div className="row">
                     <div className="col-md-4">
                         <h2> Top smishing at <span className="text-danger">{" "}
