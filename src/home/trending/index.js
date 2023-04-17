@@ -49,7 +49,7 @@ const TrendingList = () => {
                     Trending
                 </h1>
                 <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-md-5">
                         <h2> Top smishing at <span className="text-danger">{" "}
                             {location.latitude && location.longitude
                                 ? `(${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)})`
