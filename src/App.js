@@ -1,11 +1,12 @@
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
 import Home from "./home";
-import TrendingItem from "./home/trending/trending-item";
+
 
 import UserProfile from "./profile";
 import PostDetail from "./post-detail";
 import Login from "./login";
+import History from "./history";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                            element={<UserProfile/>}/>
                     <Route path="/post/:postId" element={<PostDetail/>}/>
                     <Route path="/login" element={<Login/>} />
+                    {/*<Route path="/history/:userId" element={<History/>} />*/}
 
                 </Routes>
             </div>

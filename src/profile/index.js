@@ -52,6 +52,8 @@ const UserProfile = () => {
                 setUser(response.data);
 
 
+
+
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -70,7 +72,7 @@ const UserProfile = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
-
+    user.date = new Date(user.date);
     console.log("user",user.posts, "islogged",isLoggedIn)
     // const pidList =
     return (

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+
 import axios from "axios";
+import Filter from "../profile/filter";
 
-import Filter from "./filter";
-
-const UserPost = (pidList) => {
+const MainComponent = (pidList) => {
     const [posts, setPosts] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
 
@@ -33,7 +32,7 @@ const UserPost = (pidList) => {
         fetchPost();
         filterData(1);
     }, [pidList]);
-
+console.log("posts",posts)
     return (
         <div>
             <Filter onFilter={handleFilter} />
@@ -47,4 +46,4 @@ const UserPost = (pidList) => {
     );
 };
 
-export default UserPost;
+export default MainComponent;
