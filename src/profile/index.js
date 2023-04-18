@@ -5,6 +5,7 @@ import NavigationBar from "./nav-bar";
 import UserPosts from "./user-posts";
 import UserPost from "./user-posts";
 import {useNavigate} from 'react-router-dom';
+import HeadBar from "../home/head-bar";
 
 const UserProfile = () => {
     const {userId} = useParams(); // Destructure userId from useParams
@@ -52,8 +53,6 @@ const UserProfile = () => {
                 setUser(response.data);
 
 
-
-
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -73,43 +72,45 @@ const UserProfile = () => {
         return <div>Error: {error}</div>;
     }
     user.date = new Date(user.date);
-    console.log("user",user.posts, "islogged",isLoggedIn)
+    console.log("user", user.posts, "islogged", isLoggedIn)
     // const pidList =
     return (
 
 
         <>
+            <HeadBar/>
             <div className="position-relative">
                 <div className="row">
                     <i className="col col-1 bi bi-arrow-left fs-4"></i>
 
-                    <div className="col "><span className="fs-4 fw-bold">{user.firstName} {user.lastName}</span>
+                    <div className="col ">
+                        <span className="fs-4 fw-bold">{user.firstName} {user.lastName}</span>
                         <div className="text-secondary">{user.posts.length} Posts</div>
+                    </div>
+                    <div className="col">
+                    <Link to="/tuiter/edit-user">
+                        <button className="btn border border-dark fw-bold rounded-pill float-end mt-3">
+                            Edit Profile
+                        </button>
+                    </Link>
                     </div>
                 </div>
                 {/*<img src={user.bannerPicture} width="100%" height="200px"/>*/}
                 <div className="row">
-                    <div className="col col-7">
-                        <img className="position-absolute rounded-circle bottom-0 start-0 ms-3"
-                             height="100px" src={user.userPicture}/>
-                    </div>
+                    {/*<div className="col col-7">*/}
+                    {/*    <img className="position-absolute rounded-circle bottom-0 start-0 ms-3"*/}
+                    {/*         height="100px" src={user.profilePicture}/>*/}
+                    {/*</div>*/}
                     <div className="col">
 
-                        <Link to="/tuiter/edit-user">
-                            <button className="btn border border-dark fw-bold rounded-pill float-end mt-3">
-                                Edit Profile
-                            </button>
-                        </Link>
-                        {isLoggedIn && (
-                            <button onClick={handleLogout} className="btn btn-primary">
-                                Log Out
-                            </button>
-                        )}
+
+                        {isLoggedIn && (<button onClick={handleLogout} className="btn btn-primary">
+                            Log Out
+                        </button>)}
                     </div>
                 </div>
-            </div>
-            <div>
-                <div className="fs-4 fw-bold">{user.firstName} {user.lastName}</div>
+
+                {/*<div className="fs-4 fw-bold">{user.firstName} {user.lastName}</div>*/}
                 <div className="text-secondary">{user.handle}</div>
 
                 <div className="mt-3">{user.bio}</div>
@@ -122,8 +123,10 @@ const UserProfile = () => {
                     <span className="text-secondary fw-bold">Following</span> <span class="">{user.following}</span>
                     {/*<span class="fw-bold ms-3">{user.followersCount}</span> <span*/}
                     {/*class="text-secondary">Followers</span>*/}
+
                 </div>
             </div>
+            <br/>
             <NavigationBar/>
 
 

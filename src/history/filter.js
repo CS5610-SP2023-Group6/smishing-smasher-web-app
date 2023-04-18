@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
+import {Form, Row, Col} from "react-bootstrap";
 
-const FilterComponent = ({ onFilter }) => {
+const Filter = ({onFilter}) => {
     const [selected, setSelected] = useState("1");
 
     const handleChange = (event) => {
@@ -9,16 +10,24 @@ const FilterComponent = ({ onFilter }) => {
     };
 
     return (
-        <div>
-            <label htmlFor="timeFilter">Filter by time range:</label>
-            <select id="timeFilter" value={selected} onChange={handleChange}>
-                <option value="1">1 Month</option>
-                <option value="3">3 Months</option>
-                <option value="6">6 Months</option>
-                <option value="12">1 Year</option>
-            </select>
-        </div>
+        <Row className="mb-3">
+            <Col>
+                <Form.Group controlId="timeFilter">
+                    <Form.Label>Filter by time range:</Form.Label>
+                    <Form.Control
+                        as="select"
+                        value={selected}
+                        onChange={handleChange}
+                    >
+                        <option value="1">1 Month</option>
+                        <option value="3">3 Months</option>
+                        <option value="6">6 Months</option>
+                        <option value="12">1 Year</option>
+                    </Form.Control>
+                </Form.Group>
+            </Col>
+        </Row>
     );
 };
 
-export default FilterComponent;
+export default Filter;

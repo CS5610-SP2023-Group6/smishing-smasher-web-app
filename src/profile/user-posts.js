@@ -36,7 +36,8 @@ const UserPost = (pidList) => {
 
     return (
         <div>
-            <Filter onFilter={handleFilter} />
+            <div className="col-5"><Filter onFilter={handleFilter} />  </div>
+
             {filteredData.map((post) => ( // Use 'filteredData' instead of 'posts'
                 <div key={post.id}>
                     <h2>{post.id}</h2>
