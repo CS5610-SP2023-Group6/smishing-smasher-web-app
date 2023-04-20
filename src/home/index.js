@@ -19,6 +19,7 @@ const index = () => {
 
 
             <SearchBar/>
+            <br/>
             <Trending/>
         </Provider>
 

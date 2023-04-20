@@ -1,10 +1,15 @@
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
 import Home from "./home";
-import TrendingItem from "./home/trending/trending-item";
+
 
 import UserProfile from "./profile";
 import PostDetail from "./post-detail";
+import Login from "./login";
+
+import EditProfile from "./profile/edit-profile";
+import "./vendors/bootstrap/css/bootstrap.min.css";
+import "./vendors/fontawesome/css/all.min.css";
 
 
 function App() {
@@ -15,14 +20,12 @@ function App() {
 
                     <Route index element={<Home/>}/>
                     <Route path="/home" element={<Home/>}/>
-                    <Route path="/user/:userId"
+                    <Route path="/user/:uid"
                            element={<UserProfile/>}/>
                     <Route path="/post/:postId" element={<PostDetail/>}/>
-                    {/*<Route path="/tuiter/*"*/}
-                    {/*       element={<Tuiter/>}/>*/}
-
-                    {/*<Route path="/a7"*/}
-                    {/*       element={<Assignment7/>}/>*/}
+                    <Route path="/login" element={<Login/>} />
+                    <Route path="/tuiter/edit-user" element={<EditProfile />} />
+                    {/*<Route path="/history/:userId" element={<History/>} />*/}
 
                 </Routes>
             </div>

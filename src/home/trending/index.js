@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { findPostsThunk } from "../../services/posts-thunks";
+import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {findPostsThunk} from "../../services/posts-thunks";
 
 const TrendingList = () => {
-    const { posts, loading, error } = useSelector(state => state.postsData);
+    const {posts, loading, error} = useSelector(state => state.postsData);
     const dispatch = useDispatch();
 
     const [location, setLocation] = useState({});
@@ -12,8 +12,8 @@ const TrendingList = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    const { latitude, longitude } = position.coords;
-                    setLocation({ latitude, longitude });
+                    const {latitude, longitude} = position.coords;
+                    setLocation({latitude, longitude});
                 },
                 (error) => {
                     console.error("Error retrieving user location:", error);
@@ -42,17 +42,42 @@ const TrendingList = () => {
 
     return (
         <div>
-            <h1>
-                Trending at{" "}
-                {location.latitude && location.longitude
-                    ? `(${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)})`
-                    : "your location"}
-            </h1>
-            <ul>
-                {posts.map(post => (
-                    <li key={post.id}>{post.text}</li>
-                ))}
-            </ul>
+
+
+            <div className="container">
+                <h1>
+                    Trending
+                </h1>
+                <div className="row">
+                    <div className="col-md-5">
+                        <h2> Top smishing at <span className="text-danger">{" "}
+                            {location.latitude && location.longitude
+                                ? `(${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)})`
+                                : "your location"}</span></h2>
+                        <ol>
+                            {posts.map(post => (
+                                <li key={post.id}>{post.text} <span className="text-warning">{post.time}</span></li>
+                            ))}
+                        </ol>
+                    </div>
+                    <div className="col-md-4">
+                        <h2>Top smishing in <span className="text-danger"> USA</span></h2>
+                        <ol>
+                            {posts.map(post => (
+                                <li key={post.id}>{post.text} <span className="text-warning">{post.time}</span></li>
+                            ))}
+                        </ol>
+                    </div>
+                    <div className="col-md-4">
+
+                    </div>
+                </div>
+
+                <hr/>
+
+            </div>
+
+
         </div>
     );
 };
