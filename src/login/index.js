@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -13,13 +13,13 @@ const Login = () => {
 
         try {
             const response = await axios.post("http://localhost:4000/api/users/login", {
-                username,
+                email,
                 password,
             });
 
             if (response.status === 200) {
                 // Navigate to another page after a successful login, e.g., user profile
-                navigate(`/user/${response.data.uid}`);
+                navigate(`/users/profile`);
             } else {
                 setError("Login failed. Please try again.");
             }
@@ -33,12 +33,12 @@ const Login = () => {
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="username">Username:</label>
+                    <label htmlFor="email">Email:</label>
                     <input
-                        id="username"
+                        id="email"
                         type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
                 <div>

@@ -8,8 +8,8 @@ import {useNavigate} from 'react-router-dom';
 import HeadBar from "../home/head-bar";
 
 const UserProfile = () => {
-    const {userId} = useParams(); // Destructure userId from useParams
-    console.log("userId", userId)
+    const {uid} = useParams(); // Destructure uid from useParams
+    console.log("uid", uid)
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -34,7 +34,7 @@ const UserProfile = () => {
     const checkSessionStatus = async () => {
         try {
             const response = await axios.get("http://localhost:4000/api/users/profile/me");
-            console.log("cehck seesion response", response.data)
+            console.log("check session response", response.data)
             if (response.data) {
                 setIsLoggedIn(true);
             } else {
@@ -47,11 +47,15 @@ const UserProfile = () => {
 
 
     useEffect(() => {
-        const fetchUser = async (userId) => {
+        const fetchUser = async (uid) => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/users/${userId}`);
+                const mongoose = require('mongoose');
+                const ObjectId = mongoose.Types.ObjectId;
+                const oid = new ObjectId(uid);
+                console.log(`http://localhost:4000/api/users/${uid}`)
+                const response = await axios.get(`http://localhost:4000/api/users/${uid}`);
+                console.log("response", response.data);
                 setUser(response.data);
-
 
                 setLoading(false);
             } catch (error) {
@@ -60,9 +64,10 @@ const UserProfile = () => {
             }
         };
 
-        fetchUser(userId); // Pass userId as an argument to fetchUser
+        fetchUser(uid); // Pass uid as an argument to fetchUser
         checkSessionStatus();
-    }, [userId]);
+    }, [uid]);
+
 
     if (loading) {
         return <div>Loading...</div>;
