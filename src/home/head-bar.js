@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const HeadBar = () => {
+
     return (
         <div className="container">
             <div className="row ">

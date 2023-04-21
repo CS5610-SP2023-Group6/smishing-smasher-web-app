@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {useAuth} from "./auth-context";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    const { setLoggedIn } = useAuth();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -16,10 +18,16 @@ const Login = () => {
                 email,
                 password,
             });
+            console.log(response);
 
             if (response.status === 200) {
+                setLoggedIn(true);
+                const  responseUser  = await axios.get("http://localhost:4000/api/users/email/" + email);
+                const uid = responseUser.data._id;
+
+
                 // Navigate to another page after a successful login, e.g., user profile
-                navigate(`/users/profile`);
+                navigate(`/user/${uid}`);
             } else {
                 setError("Login failed. Please try again.");
             }

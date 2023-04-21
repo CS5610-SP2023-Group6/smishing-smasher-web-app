@@ -52,8 +52,8 @@ const UserProfile = () => {
                 const mongoose = require('mongoose');
                 const ObjectId = mongoose.Types.ObjectId;
                 const oid = new ObjectId(uid);
-                console.log(`http://localhost:4000/api/users/${uid}`)
-                const response = await axios.get(`http://localhost:4000/api/users/${uid}`);
+                console.log(`http://localhost:4000/api/users/id/${uid}`)
+                const response = await axios.get(`http://localhost:4000/api/users/id/${uid}`);
                 console.log("response", response.data);
                 setUser(response.data);
 
