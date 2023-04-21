@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {Link, useParams} from "react-router-dom";
 import NavigationBar from "./nav-bar";
-import UserPosts from "./user-posts";
 import UserPost from "./user-posts";
 
 const UserProfile = () => {

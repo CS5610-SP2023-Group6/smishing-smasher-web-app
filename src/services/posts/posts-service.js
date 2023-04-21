@@ -2,17 +2,11 @@ import axios from 'axios';
 
 const API_BASE = 'http://localhost:4000/api';
 const POST_API = `${API_BASE}/posts`;
-console.log(POST_API)
-
-// const POST_API = 'http://localhost:4000/api/posts';
-
-
-
+console.log(POST_API);
 
 export const updatePost = async (post) => {
-    const response = await axios
-        .put(`${POST_API}/${post._id}`, post);
-    return post;
+    const response = await axios.put(`${POST_API}/update`, post);
+    return response.data;
 }
 
 
@@ -22,20 +16,15 @@ export const createPost = async (post) => {
 
 }
 export const findPosts = async () => {
-    const response = await axios.get(POST_API);
-
+    const response = await axios.get(`${POST_API}/all`);
     const posts = response.data;
-    console.log("findPosts",posts)
     return posts;
 
 }
 export const deletePost = async (tid) => {
-    const response = await axios
-        .delete(`${POST_API}/${tid}`)
+    const toDelete = {_id: tid};
+    const response = await axios.post(`${POST_API}/delete`, toDelete);
     return response.data
 }
-
-
-
 
 console.log(findPosts())

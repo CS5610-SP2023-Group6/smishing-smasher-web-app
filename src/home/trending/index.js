@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { findPostsThunk } from "../../services/posts-thunks";
+import { findPostsThunk } from "../../services/posts/posts-thunks";
 
 const TrendingList = () => {
     const { posts, loading, error } = useSelector(state => state.postsData);

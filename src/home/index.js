@@ -1,6 +1,4 @@
 import React from "react";
-
-
 import "../vendors/fontawesome/css/all.css"
 import "../vendors/bootstrap/css/bootstrap.min.css"
 import SearchBar from "./search-bar";

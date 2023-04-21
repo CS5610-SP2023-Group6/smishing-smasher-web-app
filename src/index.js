@@ -1,28 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {DevSupport} from "@react-buddy/ide-toolbox";
-import {ComponentPreviews, useInitial} from "./dev";
-import {Provider} from "react-redux";
-import {configureStore} from "@reduxjs/toolkit";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import postsReducer from "./reducers/posts-reducer";
-import "./vendors/bootstrap/css/bootstrap.min.css"
+import authReducer from "./reducers/auth-reducer";
+import "./vendors/bootstrap/css/bootstrap.min.css";
 
-const store = configureStore(
-    {reducer: {postsData: postsReducer}});
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = configureStore({
+  reducer: { postsData: postsReducer, auth: authReducer },
+});
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <GoogleOAuthProvider clientId="453711346264-amknu166dfhhd97j5b4ket9nohicfdbj.apps.googleusercontent.com">
     <React.StrictMode>
-        <DevSupport ComponentPreviews={ComponentPreviews}
-                    useInitialHook={useInitial}
-        >
-            <Provider store={store}>
-                <App/>
-            </Provider>,
-        </DevSupport>
+      <Provider store={store}>
+        <App />
+      </Provider>
     </React.StrictMode>
+  </GoogleOAuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
