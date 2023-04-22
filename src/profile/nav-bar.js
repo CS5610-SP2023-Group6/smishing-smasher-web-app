@@ -4,18 +4,18 @@ import {useLocation} from "react-router";
 
 const NavigationBar = () => {
     const {pathname} = useLocation();
-    console.log("pathname",pathname)
+    // console.log("pathname",pathname)
     const paths = pathname.split('/')
-    console.log("paths",paths)
+    // console.log("paths",paths)
     const active = paths[3];
     const uid = paths[2]
-    console.log("active",active)
-    console.log("uid", uid)
+    // console.log("active",active)
+    // console.log("uid", uid)
 
     return (
-        <div className="list-group list-group-horizontal">
+        <div className="list-group list-group-horizontal ">
 
-            <Link to={pathname} className={`list-group-item ${(active === 'home' || !active) ?'active':''}`}>
+            <Link to={pathname} className={`text-dark bg-light list-group-item ${(active === 'home' || !active) ?'active':''}`}>
                 Posts
 
             </Link>

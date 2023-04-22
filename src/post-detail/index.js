@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
+import PostItem from "./post-item";
+import HeadBar from "../home/head-bar";
 
 const PostDetail = () => {
-    const { postId } = useParams();
+    const {postId} = useParams();
     const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -11,9 +13,9 @@ const PostDetail = () => {
     useEffect(() => {
         const fetchPost = async (postId) => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/posts/?ids=${postId}`);
-                console.log(`http://localhost:4000/api/posts/?ids=${postId}`)
-                setPost(response.data[0]);
+                const response = await axios.get(`http://localhost:4000/api/posts/id/${postId}`);
+                console.log(response.data);
+                setPost(response.data);
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -32,14 +34,12 @@ const PostDetail = () => {
         return <div>Error: {error}</div>;
     }
 
-
     return (
-        <div>
-            <h1>Post Detail</h1>
-            <p>Title: {post.id}</p>
-            <p>Content: {post.text}</p>
-            {/* Add other post properties as needed */}
-        </div>
+        <>
+        <HeadBar/>
+            <br/>
+        <PostItem post={post}/>
+        </>
     );
 };
 
