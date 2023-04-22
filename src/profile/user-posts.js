@@ -4,6 +4,7 @@ import axios from "axios";
 import {fetchCurrentUserProfile} from "../services/auth/cur-user-service";
 import {findPostsByAuthorId} from "../services/posts/posts-service";
 import Filter from "./filter";
+import TrendingItem from "../home/trending/trending-item";
 
 const UserPost = (uid) => {
 
@@ -27,6 +28,7 @@ const UserPost = (uid) => {
         filterData(months);
 
     };
+
     useEffect(() => {
         const fetchData = async () => {
             // const currentUserProfile = await fetchCurrentUserProfile();
@@ -49,10 +51,7 @@ const UserPost = (uid) => {
         <div>
             <div className="col-5"><Filter onFilter={handleFilter} />  </div>
             {posts.map((post) => (
-                <div key={post._id}>
-                    <h2>{post._id}</h2>
-                    <p>{post.text}</p>
-                </div>
+                <TrendingItem post={post} key={post._id} />
             ))}
         </div>
     );
