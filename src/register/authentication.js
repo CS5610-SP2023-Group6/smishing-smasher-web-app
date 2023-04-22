@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { registerThunk } from "../services/auth/auth-thunk";
-import { uploadThunk } from "../services/file/file-thunk";
 import { useGoogleLogin } from "@react-oauth/google";
 import "../vendors/fontawesome/css/all.css";
 import "../vendors/bootstrap/css/bootstrap.min.css";
@@ -64,7 +63,7 @@ const Authentication = () => {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        const maxSize = 5 * 16; // 将5rem转换为像素
+        const maxSize = 5 * 16;
         canvas.width = maxSize;
         canvas.height = maxSize;
 
