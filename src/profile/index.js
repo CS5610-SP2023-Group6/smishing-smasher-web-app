@@ -116,7 +116,7 @@ const UserProfile = () => {
             <NavigationBar/>
 
 
-            <UserPost pidList={user.posts}/>
+            <UserPost pidList={userId}/>
 
 
         </>

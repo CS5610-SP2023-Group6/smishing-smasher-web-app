@@ -1,11 +1,12 @@
-
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {fetchCurrentUserProfile} from "../services/auth/cur-user-service";
 import {useEffect, useState} from "react";
-const HeadBar = ({ loggedIn }) => {
+
+const HeadBar = () => {
     const navigate = useNavigate();
     const [currentUserProfile, setCurrentUserProfile] = useState(null);
+
     const handleLogout = async () => {
         try {
             await axios.post('http://localhost:4000/api/users/logout',{},{withCredentials:true});
@@ -15,17 +16,16 @@ const HeadBar = ({ loggedIn }) => {
             console.error('Error during logout:', error);
         }
     };
+
     useEffect(() => {
         const fetchData = async () => {
-            // const userProfile = await fetchUserProfile(userId);
             const currentUserProfile = await fetchCurrentUserProfile();
             setCurrentUserProfile(currentUserProfile);
-
         };
 
         fetchData();
     }, []);
-console.log("current user profile", currentUserProfile)
+
     return (
         <div className="container">
             <div className="row ">
@@ -38,12 +38,12 @@ console.log("current user profile", currentUserProfile)
                 </div>
                 <div className="col float-end">
                     <div className="btn-group">
-                        {!loggedIn && (
+                        {!currentUserProfile && (
                             <Link to="/login" className="btn btn-light me-2">
                                 Login / Sign Up
                             </Link>
                         )}
-                        {loggedIn && (
+                        {currentUserProfile && (
                             <>
                                 <Link to={`/user/${currentUserProfile?._id}`} className="btn btn-light me-2">
                                     Profile
