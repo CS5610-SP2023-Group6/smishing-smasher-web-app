@@ -2,27 +2,34 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {fetchCurrentUserProfile} from "../services/auth/cur-user-service";
 import {useEffect, useState} from "react";
+import {isLoggedInService} from "../services/auth/is-logged-in";
 
 const HeadBar = () => {
     const navigate = useNavigate();
     const [currentUserProfile, setCurrentUserProfile] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:4000/api/users/logout',{},{withCredentials:true});
+            await axios.post('http://localhost:4000/api/users/logout', {}, { withCredentials: true });
             // Navigate to the home page after successful logout
             navigate('/home');
         } catch (error) {
             console.error('Error during logout:', error);
         }
     };
-
+    // s%3AwsTkCd8LRDz_D7XvGb1YDPt8I3RKoevq.3cz0TK4UM%2Bb%2BCiVAo2pTZFBdWaWQqsPXDc2DDJkDFFI
+    // s%3AwsTkCd8LRDz_D7XvGb1YDPt8I3RKoevq.3cz0TK4UM%2Bb%2BCiVAo2pTZFBdWaWQqsPXDc2DDJkDFFI
     useEffect(() => {
         const fetchData = async () => {
             const currentUserProfile = await fetchCurrentUserProfile();
+            console.log("currentUserProfile", currentUserProfile)
             setCurrentUserProfile(currentUserProfile);
-        };
 
+        };
+        setIsLoggedIn(isLoggedInService());
+        console.log("isLoggedIn", isLoggedIn)
         fetchData();
     }, []);
 
@@ -38,12 +45,12 @@ const HeadBar = () => {
                 </div>
                 <div className="col float-end">
                     <div className="btn-group">
-                        {!currentUserProfile && (
+                        {!isLoggedIn && (
                             <Link to="/login" className="btn btn-light me-2">
                                 Login / Sign Up
                             </Link>
                         )}
-                        {currentUserProfile && (
+                        {isLoggedIn && (
                             <>
                                 <Link to={`/user/${currentUserProfile?._id}`} className="btn btn-light me-2">
                                     Profile
@@ -54,9 +61,9 @@ const HeadBar = () => {
                                 <Link to="/following" className="btn btn-light me-2">
                                     Following
                                 </Link>
-                                <Link to="/logout" className="btn btn-light me-2" onClick={handleLogout}>
+                                <div className="btn btn-light me-2" onClick={handleLogout}>
                                     Log Out
-                                </Link>
+                                </div>
                             </>
                         )}
                     </div>
