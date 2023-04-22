@@ -4,12 +4,15 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { loginThunk, aloginThunk } from "../services/auth/auth-thunk";
+import { registerThunk } from "../services/auth/auth-thunk";
+import { uploadThunk } from "../services/file/file-thunk";
 import { useGoogleLogin } from "@react-oauth/google";
 import "../vendors/fontawesome/css/all.css";
 import "../vendors/bootstrap/css/bootstrap.min.css";
 
 const Authentication = () => {
+  const [avatar, setAvatar] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState(null);
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +22,7 @@ const Authentication = () => {
   const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
   const [bio, setBio] = useState("");
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
@@ -49,10 +53,85 @@ const Authentication = () => {
     }
   }, [user]);
 
-  const handleLogin = async () => {
+  const handleAvatarChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const imageUrl = URL.createObjectURL(file);
+
+      const image = new Image();
+      image.src = imageUrl;
+      image.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const maxSize = 5 * 16; // 将5rem转换为像素
+        canvas.width = maxSize;
+        canvas.height = maxSize;
+
+        const widthRatio = maxSize / image.width;
+        const heightRatio = maxSize / image.height;
+        const scaleRatio = Math.max(widthRatio, heightRatio);
+
+        const newWidth = image.width * scaleRatio;
+        const newHeight = image.height * scaleRatio;
+
+        ctx.drawImage(
+          image,
+          (canvas.width - newWidth) / 2,
+          (canvas.height - newHeight) / 2,
+          newWidth,
+          newHeight
+        );
+
+        const resizedImageUrl = canvas.toDataURL(file.type);
+        setAvatarPreview(resizedImageUrl);
+        setAvatar(file);
+      };
+    } else {
+      alert("Only jpg, jpeg and png files are allowed!");
+    }
+  };
+
+  const previewClickHandler = () => {
+    document.getElementById("avatar").click();
+  };
+
+  const handleRegister = async () => {
     try {
-      await dispatch(loginThunk({ email, password }));
-      navigate("/home");
+      var profilePicture = "6442a2dc66674f9ee9472690";
+      if (avatar !== null) {
+        const formData = new FormData();
+        formData.append("file", avatar);
+        const SERVER_API_URL = "http://localhost:4000/api";
+        const FILES_URL = `${SERVER_API_URL}/files`;
+        const api = axios.create({
+          withCredentials: true,
+        });
+        const response = await api.post(`${FILES_URL}/upload`, formData, {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        });
+        const uploadedFiles = response.data;
+        profilePicture = uploadedFiles[0].id;
+      }
+      console.log(profilePicture);
+      const body = {
+        email: email,
+        password: password,
+        profilePicture: profilePicture,
+        nickname: nickname,
+        birthday: birthday,
+        website: website,
+        address1: address1,
+        address2: address2,
+        city: city,
+        state: state,
+        zip: zip,
+        bio: bio,
+      };
+      await dispatch(registerThunk({ body: body }));
+      navigate("/login");
     } catch (e) {
       alert(e);
     }
@@ -94,6 +173,29 @@ const Authentication = () => {
 
   return (
     <div className="bg-white p-4 rounded">
+      <div className="mt-2 mb-4 row">
+        <div className="col-12 d-flex justify-content-center">
+          <div
+            onClick={previewClickHandler}
+            className="wd-avatar"
+            style={{
+              background: avatarPreview
+                ? `url(${avatarPreview})`
+                : `url(http://localhost:4000/api/files/6442a2dc66674f9ee9472690)`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
+          <input
+            className="form-control wd-input-text"
+            id="avatar"
+            type="file"
+            accept="image/jpeg, image/png, image/jpg"
+            onChange={handleAvatarChange}
+            style={{ display: "none" }}
+          />
+        </div>
+      </div>
       <div className="mt-2 mb-4 row">
         <label className="col-4 col-form-label fw-bold" for="email">
           Email<span className="fw-regular fs-6">*</span>
@@ -187,7 +289,7 @@ const Authentication = () => {
             className="form-control wd-input-text"
             id="address2"
             type="text"
-            value={address1}
+            value={address2}
             onChange={(event) => setAddress2(event.target.value)}
           />
         </div>
@@ -201,7 +303,7 @@ const Authentication = () => {
             className="form-control wd-input-text"
             id="city"
             type="text"
-            value={address1}
+            value={city}
             onChange={(event) => setCity(event.target.value)}
           />
         </div>
@@ -273,6 +375,20 @@ const Authentication = () => {
         </div>
       </div>
       <div className="mt-2 mb-4 row">
+        <label className="col-4 col-form-label fw-bold" for="zip">
+          Zip Code<span className="fw-regular fs-6">*</span>
+        </label>
+        <div className="col-8">
+          <input
+            className="form-control wd-input-text"
+            id="zip"
+            type="text"
+            value={zip}
+            onChange={(event) => setZip(event.target.value)}
+          />
+        </div>
+      </div>
+      <div className="mt-2 mb-4 row">
         <label className="col-4 col-form-label fw-bold" for="bio">
           Bio
         </label>
@@ -292,7 +408,7 @@ const Authentication = () => {
       <button
         id="loginBtn"
         className="btn btn-primary mb-2 w-100"
-        onClick={handleLogin}
+        onClick={handleRegister}
       >
         Sign up
       </button>
