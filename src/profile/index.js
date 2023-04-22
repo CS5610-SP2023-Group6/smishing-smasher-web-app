@@ -81,7 +81,7 @@ const UserProfile = () => {
                     </div>
                     {isCurUser && (<>
                         <div className="col">
-                            <Link to="/tuiter/edit-user">
+                            <Link to="/edit-profile">
                                 <button className="btn border border-dark fw-bold rounded-pill float-end mt-3">
                                     Edit Profile
                                 </button>
