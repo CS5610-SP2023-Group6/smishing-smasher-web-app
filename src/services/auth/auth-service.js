@@ -41,3 +41,11 @@ export const register = async ( {body} ) => {
   const user = response.data;
   return user;
 };
+
+export const logout = async () => {
+  const response = await api.post(`${USERS_URL}/logout`, {
+  });
+  const user = response.data;
+  return user;
+};
+

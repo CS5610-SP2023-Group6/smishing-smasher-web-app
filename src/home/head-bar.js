@@ -3,16 +3,20 @@ import axios from 'axios';
 import {fetchCurrentUserProfile} from "../services/auth/cur-user-service";
 import {useEffect, useState} from "react";
 import {isLoggedInService} from "../services/auth/is-logged-in";
+import { logoutThunk } from '../services/auth/auth-thunk';
+import { useDispatch } from 'react-redux';
 
 const HeadBar = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [currentUserProfile, setCurrentUserProfile] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:4000/api/users/logout', {}, { withCredentials: true });
+            // await axios.post('http://localhost:4000/api/users/logout', {}, { withCredentials: true });
+            await dispatch(logoutThunk());
             // Navigate to the home page after successful logout
             navigate('/home');
         } catch (error) {

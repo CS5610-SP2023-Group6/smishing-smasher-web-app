@@ -4,11 +4,9 @@ import Home from "./home";
 import Login from "./login";
 import Register from "./register";
 import TrendingItem from "./home/trending/trending-item";
-
 import UserProfile from "./profile";
 import PostDetail from "./post-detail";
 import EditProfile from "./profile/edit-profile";
-
 function App() {
   return (
     <BrowserRouter>
@@ -24,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-          <Route path="edit-profile" element={<EditProfile />} />
+        <Route path="edit-profile" element={<EditProfile />} />
       </Routes>
     </BrowserRouter>
   );

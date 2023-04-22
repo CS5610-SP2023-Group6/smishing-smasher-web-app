@@ -24,3 +24,11 @@ export const registerThunk = createAsyncThunk(
     return user;
   }
 );
+
+export const logoutThunk = createAsyncThunk(
+  "users/logout",
+  async (credentials) => {
+    const user = await authService.logout(credentials);
+    return user;
+  }
+);
