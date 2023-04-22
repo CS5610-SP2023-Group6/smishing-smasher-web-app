@@ -8,6 +8,7 @@ import TrendingItem from "./home/trending/trending-item";
 import UserProfile from "./profile";
 import PostDetail from "./post-detail";
 import EditProfile from "./profile/edit-profile";
+import CreatePost from "./new-post";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/user/:userId" element={<UserProfile/>}/>
                     <Route path="/post/:postId" element={<PostDetail/>}/>
                     <Route path="/edit-profile/:uid" element={<EditProfile/>}/>
+                    <Route path="/createpost" element={<CreatePost/>}/>
                 </Routes>
             </div>
             <Routes>

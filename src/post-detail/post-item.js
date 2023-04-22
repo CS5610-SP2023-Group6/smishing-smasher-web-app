@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../login/auth-context";
+import {isLoggedInService} from "../services/auth/is-logged-in";
+import {updatePost} from "../services/posts/posts-service";
 
 const PostItem = ({post}) => {
     const [showCommentInput, setShowCommentInput] = useState(false);
@@ -13,24 +15,16 @@ const PostItem = ({post}) => {
     const [dislikesCount, setDislikesCount] = useState(post.thumbDown);
     const [receivedCount, setReceivedCount] = useState(post.endorsement);
     const navigate = useNavigate();
-     const { loggedIn } = true;
+    const [loggedIn, setLoggedIn] = useState(false);
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            const isLoggedIn = await isLoggedInService();
+            setLoggedIn(isLoggedIn);
+        };
 
-    // useEffect(() => {
-    //     const checkLoginStatus = async () => {
-    //         try {
-    //             const response = await axios.get("http://localhost:4000/api/users/profile");
-    //
-    //
-    //             console.log(response);
-    //             setIsLoggedIn(response.data.status === 200);
-    //         } catch (error) {
-    //             setIsLoggedIn(false);
-    //         }
-    //     };
-    //
-    //     checkLoginStatus();
-    //
-    // }, []);
+        checkLoginStatus();
+    }, []);
+
     const handleButtonClick = () => {
         if (!loggedIn) {
             navigate("/login");
@@ -51,7 +45,7 @@ const PostItem = ({post}) => {
         }
     };
 
-    const updatePost = async (action) => {
+    const updateClick = async (action) => {
         try {
             const updatedPost = {...post};
             if (action === "like") {
@@ -82,7 +76,8 @@ const PostItem = ({post}) => {
                 }
                 setReceived(!received);
             }
-            const response = await axios.post("http://localhost:4000/api/posts/update", updatedPost);
+            console.log("updatedpost",updatedPost);
+            const response = await updatePost(updatedPost);
             console.log(response.data);
             // Add any necessary actions to update the UI
         } catch (error) {
@@ -122,16 +117,16 @@ const PostItem = ({post}) => {
                             <i className="fa fa-comment" onClick={handleButtonClick}></i> {post.comments.length}
                         </div>
                         <div className="col-2">
-                            <i className="far fa-thumbs-up" onClick={handleButtonClick}></i>
-                            Likes: {post.thumbUp}
+                            <i className={`far fa-thumbs-up${liked ? ' text-primary' : ''}`} onClick={() => updateClick('like')}></i>
+                            Likes: {likesCount}
                         </div>
                         <div className="col-2">
-                            <i className="far fa-thumbs-down" onClick={handleButtonClick}></i>
-                            Unlikes: {post.thumbDown}
+                            <i className={`far fa-thumbs-down${disliked ? ' text-primary' : ''}`} onClick={() => updateClick('dislike')}></i>
+                            Unlikes: {dislikesCount}
                         </div>
                         <div className="col-2">
-                            <i className="fa fa-envelope-open-text" onClick={handleButtonClick}></i>
-                            Received: {post.endorsement}
+                            <i className={`fa fa-envelope-open-text${received ? ' text-primary' : ''}`} onClick={() => updateClick('received')}></i>
+                            Received: {receivedCount}
                         </div>
                     </div>
                 </div>

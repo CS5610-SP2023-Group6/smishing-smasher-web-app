@@ -5,16 +5,18 @@ const POST_API = `${API_BASE}/posts`;
 console.log(POST_API);
 
 export const updatePost = async (post) => {
-    const response = await axios.put(`${POST_API}/update`, post);
+    console.log("pst-ser,updatePost", post)
+    const response = await axios.post(`${POST_API}/update`, post, { withCredentials: true });
     return response.data;
 }
 
 
 export const createPost = async (post) => {
-    const response = await axios.post(POST_API, post)
+    console.log("createPost", post)
+    const response = await axios.post(`${POST_API}/create`, post, { withCredentials: true });
     return response.data;
+};
 
-}
 export const findPosts = async () => {
     const response = await axios.get(`${POST_API}/all`);
     const posts = response.data;
