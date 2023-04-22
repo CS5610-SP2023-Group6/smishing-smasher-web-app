@@ -8,6 +8,7 @@ const HeadBar = () => {
     const navigate = useNavigate();
     const [currentUserProfile, setCurrentUserProfile] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loggedOut, setLoggedOut] = useState(false);
 
 
     const handleLogout = async () => {
@@ -15,6 +16,7 @@ const HeadBar = () => {
             await axios.post('http://localhost:4000/api/users/logout', {}, { withCredentials: true });
             // Navigate to the home page after successful logout
             navigate('/home');
+            setLoggedOut(!loggedOut);
         } catch (error) {
             console.error('Error during logout:', error);
         }
@@ -24,14 +26,15 @@ const HeadBar = () => {
     useEffect(() => {
         const fetchData = async () => {
             const currentUserProfile = await fetchCurrentUserProfile();
-            console.log("currentUserProfile", currentUserProfile)
+            console.log('currentUserProfile', currentUserProfile);
             setCurrentUserProfile(currentUserProfile);
-
+            const tmpLoggedIn = await isLoggedInService();
+            setIsLoggedIn(tmpLoggedIn);
         };
-        setIsLoggedIn(isLoggedInService());
-        console.log("isLoggedIn", isLoggedIn)
+
+        console.log('isLoggedIn', isLoggedIn);
         fetchData();
-    }, []);
+    }, [loggedOut]);
 
     return (
         <div className="container">

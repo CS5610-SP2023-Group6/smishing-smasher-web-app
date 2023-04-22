@@ -48,8 +48,8 @@ const TrendingList = () => {
             } else {
                 setUSAposts([]);
             }
-            userProfileData.city = "Test City";
-            userProfileData.state = "TT";
+            // userProfileData.city = "Test City";
+            // userProfileData.state = "TT";
 
             const localPosts = allPosts.filter(post => post.city === userProfileData.city && post.state === userProfileData.state);
             console.log(localPosts);
