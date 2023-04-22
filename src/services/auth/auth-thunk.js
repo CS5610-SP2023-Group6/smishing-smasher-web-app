@@ -16,3 +16,11 @@ export const aloginThunk = createAsyncThunk(
     return user;
   }
 );
+
+export const registerThunk = createAsyncThunk(
+  "users/register",
+  async (credentials) => {
+    const user = await authService.register(credentials);
+    return user;
+  }
+);

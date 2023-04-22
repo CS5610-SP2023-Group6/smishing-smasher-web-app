@@ -21,3 +21,23 @@ export const alogin = async ({ email }) => {
   const user = response.data;
   return user;
 };
+
+
+export const register = async ( {body} ) => {
+  const response = await api.post(`${USERS_URL}/register`, {
+    email: body.email,
+    password: body.password,
+    profilePicture: body.profilePicture,
+    nickname: body.nickname,
+    birthday: body.birthday,
+    website: body.website,
+    address1: body.address1,
+    address2: body.address2,
+    city: body.city,
+    zip: body.zip,
+    state: body.state,
+    bio: body.bio,
+  });
+  const user = response.data;
+  return user;
+};
