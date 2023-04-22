@@ -44,10 +44,14 @@ const UserProfile = () => {
     };
 
     useEffect(() => {
+        const fetchData = async () => {
+            await fetchUser(userId); // Pass userId as an argument to fetchUser
+            await fetchCurUserId(userId);
 
+            // console.log("user", user)
+        };
 
-        fetchUser(userId); // Pass userId as an argument to fetchUser
-        fetchCurUserId(userId);
+        fetchData();
     }, [userId]);
 
 
@@ -58,7 +62,8 @@ const UserProfile = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
-    console.log("user", user.posts)
+    console.log("user", user)
+    console.log("isCurUser", isCurUser)
     // const pidList =
     return (
 
@@ -70,16 +75,19 @@ const UserProfile = () => {
                     <i className="col col-1 bi bi-arrow-left fs-4"></i>
 
                     <div className="col ">
-                        <span className="fs-4 fw-bold">{user.firstName} {user.lastName}</span>
+                        <span className="fs-4 fw-bold">{user.nickname}</span>
+                        <div className="text-secondary">{user.email} </div>
                         <div className="text-secondary">{user.posts.length} Posts</div>
                     </div>
-                    <div className="col">
-                        <Link to="/tuiter/edit-user">
-                            <button className="btn border border-dark fw-bold rounded-pill float-end mt-3">
-                                Edit Profile
-                            </button>
-                        </Link>
-                    </div>
+                    {isCurUser && (<>
+                        <div className="col">
+                            <Link to="/tuiter/edit-user">
+                                <button className="btn border border-dark fw-bold rounded-pill float-end mt-3">
+                                    Edit Profile
+                                </button>
+                            </Link>
+                        </div>
+                    </>)}
                 </div>
                 {/*<img src={user.bannerPicture} width="100%" height="200px"/>*/}
                 {/*<div className="row">*/}
@@ -97,7 +105,7 @@ const UserProfile = () => {
                 {/*</div>*/}
 
                 {/*<div className="fs-4 fw-bold">{user.firstName} {user.lastName}</div>*/}
-                <div className="text-secondary">{user.handle}</div>
+                {/*<div className="text-secondary">{user.handle}</div>*/}
 
                 <div className="mt-3">{user.bio}</div>
                 <div className="text-secondary mt-3">
