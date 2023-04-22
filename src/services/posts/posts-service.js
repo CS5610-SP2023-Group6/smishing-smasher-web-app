@@ -26,5 +26,12 @@ export const deletePost = async (tid) => {
     const response = await axios.post(`${POST_API}/delete`, toDelete);
     return response.data
 }
+export const findPostsByAuthorId = async (authorId) => {
+    const response = await axios.get(`${POST_API}/author/${authorId}`);
+    console.log(`${POST_API}/author/${authorId}`)
+    const posts = response.data;
+    return posts;
+}
+
 
 console.log(findPosts())

@@ -9,7 +9,7 @@ const searchBar = () => {
                        wd-nudge-up"></i>
             </div>
             <div className="col-1 position-relative float-end">
-                <button className="btn rounded-pill ps-3 pe-3 fw-bold ">
+                <button className="btn btn-light rounded-pill ps-3 pe-3 fw-bold ">
                     Search
                 </button>
             </div>

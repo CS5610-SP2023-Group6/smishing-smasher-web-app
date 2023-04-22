@@ -1,35 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { findPostsThunk } from "../../services/posts/posts-thunks";
+import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {findPostsThunk} from "../../services/posts/posts-thunks";
+import axios from 'axios';
 
 const TrendingList = () => {
-    const { posts, loading, error } = useSelector(state => state.postsData);
+    const {posts, loading, error} = useSelector(state => state.postsData);
     const dispatch = useDispatch();
 
-    const [location, setLocation] = useState({});
 
-    const getUserLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    setLocation({ latitude, longitude });
-                },
-                (error) => {
-                    console.error("Error retrieving user location:", error);
-                }
-            );
-        } else {
-            console.error("Geolocation is not supported by this browser.");
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [userLocation, setUserLocation] = useState(null);
+    const [userProfileData, setUserProfileData] = useState(null);
+
+
+    const fetchUserProfile = async () => {
+        try {
+            const response = await axios.get('http://localhost:4000/api/users/profile',{withCredentials: true});
+            if (response.data.city && response.data.state) {setLoggedIn(true);}
+            else {setLoggedIn(false);}
+
+
+            setUserProfileData(response.data);
+            console.log(response.data);
+
+            if (response.data.city && response.data.state) {
+                setUserLocation(response.data.city + ', ' + response.data.state);
+            }
+        } catch (error) {
+            setLoggedIn(false);
         }
     };
 
+
     useEffect(() => {
         // Dispatch the findPostsThunk to fetch posts when the component mounts
-        dispatch(findPostsThunk());
+        dispatch((findPostsThunk()));
 
         // Get user location when the component mounts
-        getUserLocation();
+        fetchUserProfile();
     }, [dispatch]);
 
     if (loading) {
@@ -42,17 +50,46 @@ const TrendingList = () => {
 
     return (
         <div>
-            <h1>
-                Trending at{" "}
-                {location.latitude && location.longitude
-                    ? `(${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)})`
+
+
+            <div className="container">
+                <h1>
+                    Trending
+                </h1>
+                <div className="row">
+                    <div className="col-md-5">
+                        <h2>
+                            Top smishing at{" "}
+                            <span className="text-danger">
+                {userLocation
+                    ? userLocation
                     : "your location"}
-            </h1>
-            <ul>
-                {posts.map(post => (
-                    <li key={post.id}>{post.text}</li>
-                ))}
-            </ul>
+              </span>
+                        </h2>
+                        <ol>
+                            {posts.map(post => (
+                                <li key={post.id}>{post.text} <span className="text-warning">{post.time}</span></li>
+                            ))}
+                        </ol>
+                    </div>
+                    <div className="col-md-4">
+                        <h2>Top smishing in <span className="text-danger"> USA</span></h2>
+                        <ol>
+                            {posts.map(post => (
+                                <li key={post.id}>{post.text} <span className="text-warning">{post.time}</span></li>
+                            ))}
+                        </ol>
+                    </div>
+                    <div className="col-md-4">
+
+                    </div>
+                </div>
+
+                <hr/>
+
+            </div>
+
+
         </div>
     );
 };
