@@ -81,7 +81,7 @@ const UserProfile = () => {
                     </div>
                     {isCurUser && (<>
                         <div className="col">
-                            <Link to="/edit-profile">
+                            <Link to={`/edit-profile/${userId}`}>
                                 <button className="btn border border-dark fw-bold rounded-pill float-end mt-3">
                                     Edit Profile
                                 </button>
