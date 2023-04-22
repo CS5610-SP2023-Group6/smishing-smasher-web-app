@@ -13,7 +13,7 @@ const PostItem = ({post}) => {
     const [dislikesCount, setDislikesCount] = useState(post.thumbDown);
     const [receivedCount, setReceivedCount] = useState(post.endorsement);
     const navigate = useNavigate();
-    const { loggedIn } = useAuth();
+     const { loggedIn } = true;
 
     // useEffect(() => {
     //     const checkLoginStatus = async () => {
