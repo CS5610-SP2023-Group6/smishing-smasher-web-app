@@ -33,5 +33,30 @@ export const findPostsByAuthorId = async (authorId) => {
     return posts;
 }
 
+export const findAllPosts = async () => {
+    const response = await axios.get(`${POST_API}/all`);
+    console.log(`${POST_API}/all`)
+    // console.log(response.data)
+    const posts = response.data;
+    return posts;
+}
+export const findPostById = async (id) => {
+    const response = await axios.get(`${POST_API}/id/${id}`);
+    return response.data;
+};
 
-console.log(findPosts())
+export const findPostsByTime = async (start, end) => {
+    const response = await axios.post(`${POST_API}/time`, { start, end });
+    return response.data;
+};
+
+export const findPostsByContents = async (contents) => {
+    const response = await axios.post(`${POST_API}/content`, { contents });
+    return response.data;
+};
+
+export const findPostsByAddress = async (address) => {
+    const response = await axios.post(`${POST_API}/address`, { address });
+    return response.data;
+};
+// console.log(findPosts())
