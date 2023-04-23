@@ -3,11 +3,13 @@ import HeadBar from "../home/head-bar";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import PostComponent from "../post/post-component";
 import axios from "axios";
 
 const Search = () => {
   const [posts, setPosts] = useState([]);
+  const location = useLocation();
   const search = useSelector((state) => state.search);
   const searching = async (text) => {
     const api = axios.create({ withCredentials: true });
@@ -26,7 +28,7 @@ const Search = () => {
       setPosts(fetchedPosts);
     };
     fetchPosts();
-  }, [search.text]);
+  }, [search.text, location]);
 
   console.log("posts: \n", posts);
   return (

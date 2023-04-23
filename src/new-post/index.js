@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { fetchCurrentUserProfile } from "../services/cur-user-service";
 import { createPost } from "../services/posts/posts-service";
-import History from "../history";
+import { useNavigate } from "react-router";
+import History from "../profile-filter";
 import HeadBar from "../home/head-bar";
 import "./index.css";
 // import { createPost, fetchCurrentUserProfile } from '../services'; // Import your functions
@@ -15,6 +16,7 @@ const CreatePost = () => {
   const [spamText, setSpamText] = useState("");
   const [zip, setZip] = useState("");
   const [description, setDescription] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,7 +44,7 @@ const CreatePost = () => {
       console.error("Error creating post");
       return;
     }
-    navigator("/home")
+    navigator("/home");
 
     // Add the new post ID to the user's posts array
     // userProfile.posts.push(createdPost._id);
