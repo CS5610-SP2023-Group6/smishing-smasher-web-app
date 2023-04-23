@@ -71,7 +71,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // await fetchUser(userId); // Pass userId as an argument to fetchUser
+      await fetchUser(userId); // Pass userId as an argument to fetchUser
       await fetchCurUserId(userId);
       const current = await fetchCurrentUserProfile();
       if (current._id !== userId) {
