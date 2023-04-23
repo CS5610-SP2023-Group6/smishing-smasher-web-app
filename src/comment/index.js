@@ -3,49 +3,53 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../login/auth-context";
 import { isLoggedInService } from "../services/auth/is-logged-in";
-import { createComment } from "../services/comment-service";
+import {createComment, findCommentById, updateComment} from "../services/comment-service";
 import { fetchCurrentUserProfile } from "../services/cur-user-service";
 import { findUserById } from "../services/user-service";
+import {updatePost} from "../services/posts/posts-service";
 
-const CommentItem = ({ comment }) => {
+const CommentItem = ({ commentId }) => {
+    const [comment, setComment] = useState(null);
     const [showCommentInput, setShowCommentInput] = useState(false);
     const [commentText, setCommentText] = useState("");
     const [liked, setLiked] = useState(false);
     const [disliked, setDisliked] = useState(false);
-    const [likesCount, setLikesCount] = useState(comment.thumbUp);
-    const [dislikesCount, setDislikesCount] = useState(comment.thumbDown);
+    const [likesCount, setLikesCount] = useState(null);
+    const [dislikesCount, setDislikesCount] = useState(null);
     const navigate = useNavigate();
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
     const [commentAuthor, setCommentAuthor] = useState(null);
     const [avatar, setAvatar] = useState("");
 
+    console.log("comment", commentId);
+
     useEffect(() => {
-        const getAvatar = async () => {
+        const fetchData = async () => {
+            const cmt = await findCommentById(commentId);
+            setComment(cmt);
+
+            const isLoggedIn = await isLoggedInService();
+            setLoggedIn(isLoggedIn);
+
+            const curUser = await fetchCurrentUserProfile();
+            setUser(curUser);
+
             const api = axios.create({ withCredentials: true });
-            const res = await api.get(
-                `http://localhost:4000/api/users/id/${comment.authorID}`
-            );
+            const res = await api.get(`http://localhost:4000/api/users/id/${cmt.authorID}`);
+
             if (res.data.profilePicture !== undefined) {
                 setAvatar(`http://localhost:4000/api/files/${res.data.profilePicture}`);
             } else {
                 setAvatar(`http://localhost:4000/api/files/6442a2dc66674f9ee9472690`);
             }
-        };
-        const checkLoginStatus = async () => {
-            const isLoggedIn = await isLoggedInService();
-            setLoggedIn(isLoggedIn);
-            const curUser = await fetchCurrentUserProfile();
-            setUser(curUser);
-            const curAuthor = await findUserById(comment.authorID);
-            console.log(comment.authorID);
-            console.log("curauthor", curAuthor);
-            setCommentAuthor(curAuthor);
-            console.log("commentAuthor", commentAuthor);
+
+            setLikesCount(cmt.thumbUp);
+            setDislikesCount(cmt.thumbDown);
         };
 
-        checkLoginStatus();
-        getAvatar();
+        fetchData();
+
     }, []);
 
     const handleButtonClick = () => {
@@ -73,6 +77,7 @@ const CommentItem = ({ comment }) => {
     };
 
     const updateClick = async (action) => {
+
         try {
             const updatedComment = { ...comment };
             if (action === "like") {
@@ -95,14 +100,15 @@ const CommentItem = ({ comment }) => {
                 setDisliked(!disliked);
             }
             console.log("updatedComment", updatedComment);
-            // You will need to update the comment in the database.
-            // Add the necessary function call here.
+            const response = await updateComment(updatedComment);
+            console.log("res update cmt",response.data);
+
         } catch (error) {
             console.error("Error updating comment:", error);
         }
     };
 
-    return (
+    return comment ?(
         <li className="list-group-item">
             <div className="row">
                 <div className="col-2">
@@ -117,22 +123,25 @@ const CommentItem = ({ comment }) => {
                     <div className="row text-muted">
                         <div className="col-2">
                             <i
-                                className="far fa-thumbs-up"${liked ? " text-primary" : ""}
+                                className={`far fa-thumbs-up${liked ? " text-primary" : ""}`}
                                 onClick={() => updateClick("like")}
-                            ></i>
+                            />
+
                             Likes: {likesCount}
                         </div>
                         <div className="col-2">
                             <i
-                                className="far fa-thumbs-down"${ disliked ? " text-primary" : "" }
+                                className={`far fa-thumbs-down${disliked ? " text-primary" : ""}`}
                                 onClick={() => updateClick("dislike")}
                             ></i>
-                            Unlikes: {dislikesCount}
+                            Dislikes: {dislikesCount}
                         </div>
                     </div>
                 </div>
             </div>
         </li>
+    ): (
+        <div>Loading...</div>
     );
 };
 
