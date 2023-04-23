@@ -7,6 +7,8 @@ import Filter from "./filter";
 import TrendingItem from "../home/trending/trending-item";
 
 const UserPost = (uid) => {
+    uid = uid.uid;
+    console.log("uid, user-post", uid);
 
     const [posts, setPosts] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
@@ -33,7 +35,7 @@ const UserPost = (uid) => {
         const fetchData = async () => {
             const currentUserProfile = await fetchCurrentUserProfile();
             
-            const uid = currentUserProfile._id;
+            // const uid = currentUserProfile._id;
             console.log("uid", uid)
             const userPosts = await findPostsByAuthorId(uid);
 
