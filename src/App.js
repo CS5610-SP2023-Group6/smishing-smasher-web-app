@@ -22,6 +22,7 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/user/:userId" element={<UserProfile/>}/>
+                    <Route path="/user/:userId/comments" element={<UserProfile/>} />
                     <Route path="/user/:userId/editrole" element={<EditRole/>}/>
                     <Route path="/post/:postId" element={<PostDetail/>}/>
                     <Route path="/edit-profile/:uid" element={<EditProfile/>}/>

@@ -87,8 +87,8 @@ const TrendingList = () => {
           {USAposts.sort((a, b) => {
             const aT = new Date(a.createdAt);
             const bT = new Date(b.createdAt);
-            console.log(aT);
-            console.log(bT);
+            // console.log(aT);
+            // console.log(bT);
             return bT - aT;
           })
             .filter((post) => ((post.city) + ", " + (post.state) === userLocation))
@@ -106,8 +106,8 @@ const TrendingList = () => {
           {USAposts.sort((a, b) => {
             const aT = new Date(a.createdAt);
             const bT = new Date(b.createdAt);
-            console.log(aT);
-            console.log(bT);
+            // console.log(aT);
+            // console.log(bT);
             return bT - aT;
           })
             .slice(0, 5)
