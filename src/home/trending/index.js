@@ -77,7 +77,7 @@ const TrendingList = () => {
   return (
     <div className="wd-bg border border-2 p-5 rounded">
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-md-6">
           <h3>
             Top smishing at{" "}
             <span className="text-danger">
@@ -98,8 +98,7 @@ const TrendingList = () => {
             ))}
             ...
         </div>
-        <div className="col-md-4"></div>
-        <div className="col-md-4">
+        <div className="col-md-6">
           <h3>
             Top smishing in <span className="text-danger"> USA</span>
           </h3>

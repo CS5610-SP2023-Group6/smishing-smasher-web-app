@@ -20,7 +20,7 @@ const NavigationBar = () => {
     return (
       <Link
         to={`${pathname}/editrole`}
-        className={`list-group-item ${active === "explore" ? "active" : ""}`}
+        className={`list-group-item ${active === "explore" ? "active" : ""} bg-danger fw-bold text-white`}
       >
         Edit Admins
       </Link>
