@@ -8,10 +8,11 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import postsReducer from "./reducers/posts-reducer";
 import authReducer from "./reducers/auth-reducer";
+import searchReducer from "./reducers/search-reducer";
 import "./vendors/bootstrap/css/bootstrap.min.css";
 
 const store = configureStore({
-  reducer: { postsData: postsReducer, auth: authReducer },
+  reducer: { postsData: postsReducer, auth: authReducer, search: searchReducer },
 });
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
