@@ -16,17 +16,17 @@ const NavigationBar = () => {
     // console.log("active",active)
     // console.log("uid", uid)
 
-    const EditAdmin = () => {
-        return (
-            <Link
-                to={`${pathname}/editadmin`}
-                className={`list-group-item ${active === "explore" ? "active" : ""}`}
-            >
-                Edit Admins
-            </Link>
-        );
-    };
-
+  const EditAdmin = () => {
+    return (
+      <Link
+        to={`${pathname}/editrole`}
+        className={`list-group-item ${active === "explore" ? "active" : ""}`}
+      >
+        Edit Admins
+      </Link>
+    );
+  };
+  
     const fetchData = async () => {
         const currentUserProfile = await fetchCurrentUserProfile();
 

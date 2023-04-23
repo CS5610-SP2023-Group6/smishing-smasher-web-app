@@ -12,6 +12,7 @@ import EditPost from "./update-post";
 import CreatePost from "./new-post";
 import Search from "./search";
 import History from "./history";
+import EditRole from "./edit-role";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/user/:userId" element={<UserProfile/>}/>
                     <Route path="/user/:userId/comments" element={<UserProfile/>} />
+                    <Route path="/user/:userId/editrole" element={<EditRole/>}/>
                     <Route path="/post/:postId" element={<PostDetail/>}/>
                     <Route path="/edit-profile/:uid" element={<EditProfile/>}/>
                     <Route path="/edit-post/:pid" element={<EditPost/>}/>

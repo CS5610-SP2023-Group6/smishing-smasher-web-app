@@ -5,6 +5,7 @@ import {fetchCurrentUserProfile} from "../services/auth/cur-user-service";
 import {findPostsByAuthorId} from "../services/posts/posts-service";
 import Filter from "./filter";
 import TrendingItem from "../home/trending/trending-item";
+import PostComponent from "../post/post-component";
 
 const UserPost = (uid) => {
     uid = uid.uid;
@@ -51,7 +52,7 @@ const UserPost = (uid) => {
     return (
         <div>
             <div className="col-5"><Filter onFilter={handleFilter} />  </div>
-            {filteredData.length === 0 ? posts.map((post) => (<TrendingItem post={post} key={post._id}/>)) : filteredData.map((post) => (<TrendingItem post={post} key={post._id} />))}
+            {filteredData.length === 0 ? posts.map((post) => (<PostComponent post={post}/>)) : filteredData.map((post) => (<PostComponent post={post} />))}
         </div>
     );
 };
