@@ -24,6 +24,7 @@ function App() {
                     <Route path="/user/:userId" element={<UserProfile/>}/>
                     <Route path="/user/:userId/comments" element={<UserProfile/>} />
                     <Route path="/user/:userId/editrole" element={<EditRole/>}/>
+                    <Route path="/user/:userId/comments/editrole" element={<EditRole/>}/>
                     <Route path="/post/:postId" element={<PostDetail/>}/>
                     <Route path="/edit-profile/:uid" element={<EditProfile/>}/>
                     <Route path="/edit-post/:pid" element={<EditPost/>}/>

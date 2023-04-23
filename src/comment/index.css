@@ -1,0 +1,17 @@
+.wd-comment {
+  background-color: darkgrey;
+}
+
+.wd-author {
+  font-size: 0.7rem;
+}
+
+.wd-time {
+  font-size: 0.7rem;
+  color: white;
+  background-color: black;
+}
+
+.wd-interaction {
+  font-size: 0.8rem;
+}
