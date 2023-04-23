@@ -1,0 +1,19 @@
+.wd-post {
+  background-color: rgb(208, 201, 190);
+}
+
+.wd-user {
+  font-size: 0.8rem;
+}
+
+.wd-phone {
+  color:white;
+  font-size: 0.9rem;
+  background-color: red;
+}
+
+.wd-spam {
+  color: white;
+  font-size: 0.8rem;
+  background-color: gray;
+}

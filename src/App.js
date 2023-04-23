@@ -8,6 +8,7 @@ import TrendingItem from "./home/trending/trending-item";
 import UserProfile from "./profile";
 import PostDetail from "./post-detail";
 import EditProfile from "./profile/edit-profile";
+import EditPost from "./update-post";
 import CreatePost from "./new-post";
 import Search from "./search";
 import History from "./history";
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/user/:userId" element={<UserProfile/>}/>
                     <Route path="/post/:postId" element={<PostDetail/>}/>
                     <Route path="/edit-profile/:uid" element={<EditProfile/>}/>
+                    <Route path="/edit-post/:pid" element={<EditPost/>}/>
                     <Route path="/createpost" element={<CreatePost/>}/>
                     <Route path="/search" element={<Search/>}/>
                     <Route path="/history" element={<History/>}/>
