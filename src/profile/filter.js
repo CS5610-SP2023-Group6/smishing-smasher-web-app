@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 
 const Filter = ({ onFilter }) => {
-    const [selected, setSelected] = useState("1");
+    const [selected, setSelected] = useState("12");
 
     const handleChange = (event) => {
         setSelected(event.target.value);

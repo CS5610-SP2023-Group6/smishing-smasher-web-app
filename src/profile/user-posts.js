@@ -14,10 +14,11 @@ const UserPost = (uid) => {
     const filterData = (months) => {
         const now = new Date();
         const filtered = posts.filter((item) => {
-            const itemDate = new Date(item.time); // Use 'item.time' instead of 'item.datePosted'
+            const itemDate = new Date(item.createdAt); // Use 'item.time' instead of 'item.datePosted'
             const timeDifference = now - itemDate;
             const monthsDifference = timeDifference / 1000 / 60 / 60 / 24 / 30;
-
+            console.log(months);
+            console.log(monthsDifference);
             return monthsDifference <= months;
         });
 
@@ -26,20 +27,18 @@ const UserPost = (uid) => {
 
     const handleFilter = (months) => {
         filterData(months);
-
     };
 
     useEffect(() => {
         const fetchData = async () => {
-            // const currentUserProfile = await fetchCurrentUserProfile();
-            // console.log("currentUserProfile", currentUserProfile)
-            // if (currentUserProfile.status != 403) {
-            //
-            // const uid = currentUserProfile._id;
+            const currentUserProfile = await fetchCurrentUserProfile();
+            
+            const uid = currentUserProfile._id;
             console.log("uid", uid)
-            const userPosts = await findPostsByAuthorId(uid.pidList);
+            const userPosts = await findPostsByAuthorId(uid);
 
             setPosts(userPosts)
+            setFilteredData(userPosts);
             console.log("userPosts", userPosts)
             filterData(1);
         };
@@ -50,9 +49,7 @@ const UserPost = (uid) => {
     return (
         <div>
             <div className="col-5"><Filter onFilter={handleFilter} />  </div>
-            {posts.map((post) => (
-                <TrendingItem post={post} key={post._id} />
-            ))}
+            {filteredData.length === 0 ? posts.map((post) => (<TrendingItem post={post} key={post._id}/>)) : filteredData.map((post) => (<TrendingItem post={post} key={post._id} />))}
         </div>
     );
 };
