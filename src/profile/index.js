@@ -117,8 +117,6 @@ const UserProfile = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-  console.log("user", user);
-  console.log("isCurUser", isCurUser);
   // const pidList =
   return (
     <>
@@ -166,6 +164,7 @@ const UserProfile = () => {
         <div className="mt-3 ms-3">
           <span className="text-secondary fw-bold">Following</span>{" "}<span className="fw-bold">{user.following.length}</span>
           <span className="text-secondary fw-bold ms-3">Followers</span>{" "}<span className="fw-bold">{user.followers}</span>
+          <span className="text-secondary fw-bold ms-3">Role</span>{" "}<span className="fw-bold">{user.role}</span>
         </div>
       </div>
       <br />
