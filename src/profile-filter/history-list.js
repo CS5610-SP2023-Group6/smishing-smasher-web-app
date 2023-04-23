@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 import Filter from "../profile/filter";
-
+const API_BASE = process.env.REACT_APP_API_BASE;
 const MainComponent = (pidList) => {
     const [posts, setPosts] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
@@ -26,7 +26,7 @@ const MainComponent = (pidList) => {
 
     useEffect(() => {
         const fetchPost = async () => {
-            const response = await axios.get(`http://localhost:4000/api/posts?ids=${pidList.pidList.join(',')}`);
+            const response = await axios.get(`${API_BASE}/posts?ids=${pidList.pidList.join(',')}`);
             setPosts(response.data);
         };
         fetchPost();

@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const POST_API = "http://localhost:4000/api/posts/all";
+const API_BASE = process.env.REACT_APP_API_BASE;
+
+const POST_API = `${API_BASE}/posts/all`;
 
 // Define a Redux slice for posts
 const postsSlice = createSlice({

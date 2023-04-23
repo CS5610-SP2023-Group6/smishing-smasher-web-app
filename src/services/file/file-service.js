@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
-const SERVER_API_URL = "http://localhost:4000/api";
+
+const SERVER_API_URL =  process.env.REACT_APP_API_BASE;
 const FILES_URL = `${SERVER_API_URL}/files`;
 
 const api = axios.create({

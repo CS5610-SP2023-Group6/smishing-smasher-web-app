@@ -14,7 +14,7 @@ import { findUserById } from "../services/user-service";
 import { updatePost } from "../services/posts/posts-service";
 import Filter from "../profile/filter";
 import "./index.css";
-
+const API_BASE = process.env.REACT_APP_API_BASE;
 const CommentItem = ({ uid }) => {
   const [comments, setComments] = useState([]); // Create a state for comments
   const navigate = useNavigate();
@@ -48,12 +48,12 @@ const CommentItem = ({ uid }) => {
       console.log("uid, profile-comment", uid);
 
       const api = axios.create({ withCredentials: true });
-      const res = await api.get(`http://localhost:4000/api/users/id/${uid}`);
+      const res = await api.get(`${API_BASE}/users/id/${uid}`);
 
       if (res.data.profilePicture !== undefined) {
-        setAvatar(`http://localhost:4000/api/files/${res.data.profilePicture}`);
+        setAvatar(`${API_BASE}/files/${res.data.profilePicture}`);
       } else {
-        setAvatar(`http://localhost:4000/api/files/6442a2dc66674f9ee9472690`);
+        setAvatar(`${API_BASE}/files/6442a2dc66674f9ee9472690`);
       }
       const userComments = await findCommentsByAuthorId(uid); // Get user's comments by 'uid'
       setComments(userComments); // Set the state with fetched comments

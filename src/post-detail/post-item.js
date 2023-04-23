@@ -9,6 +9,7 @@ import { fetchCurrentUserProfile } from "../services/cur-user-service";
 import { findUserById } from "../services/user-service";
 import CommentItem from "../comment";
 import "./post.css";
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 const PostItem = ({ post }) => {
   const [showCommentInput, setShowCommentInput] = useState(false);
@@ -34,10 +35,10 @@ const PostItem = ({ post }) => {
     const getAvatar = async () => {
       const api = axios.create({ withCredentials: true });
       const res = await api.get(
-        `http://localhost:4000/api/users/id/${post.authorID}`
+        `${API_BASE}/users/id/${post.authorID}`
       );
       if (res.data.profilePicture !== undefined) {
-        setAvatar(`http://localhost:4000/api/files/${res.data.profilePicture}`);
+        setAvatar(`${A}/files/${res.data.profilePicture}`);
         setAuthorName(res.data.nickname);
         const curUser = await fetchCurrentUserProfile();
         setRole(curUser.role);
@@ -50,7 +51,7 @@ const PostItem = ({ post }) => {
           setCanEdit(true);
         }
       } else {
-        setAvatar(`http://localhost:4000/api/files/6442a2dc66674f9ee9472690`);
+        setAvatar(`${API_BASE}/files/6442a2dc66674f9ee9472690`);
       }
     };
     const checkLoginStatus = async () => {
@@ -73,7 +74,7 @@ const PostItem = ({ post }) => {
 
   const handleDeleteButtonClick = async () => {
     const api = axios.create({ withCredentials: true });
-    api.post("http://localhost:4000/api/posts/delete", {
+    api.post(`${API_BASE}/posts/delete`, {
       _id: post._id,
     });
     navigate("/home");

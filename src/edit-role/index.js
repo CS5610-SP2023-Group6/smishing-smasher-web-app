@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import HeadBar from "../home/head-bar";
 import "./index.css";
 // import { createPost, fetchCurrentUserProfile } from '../services'; // Import your functions
-
+const API_BASE = process.env.REACT_APP_API_BASE;
 const EditRole = () => {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
@@ -12,7 +12,7 @@ const EditRole = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const api = axios.create({ withCredentials: true });
-    const res = await api.get(`http://localhost:4000/api/users/email/${email}`);
+    const res = await api.get(`${API_BASE}/users/email/${email}`);
     const user = res.data;
     console.log(user);
     if (!user) {
@@ -24,7 +24,7 @@ const EditRole = () => {
       _id: user._id,
       role: role,
     };
-    const res2 = await api.post(`http://localhost:4000/api/users/update`, newRole);
+    const res2 = await api.post(`${API_BASE}/users/update`, newRole);
     console.log(res2.data);
 
     navigate("/home");

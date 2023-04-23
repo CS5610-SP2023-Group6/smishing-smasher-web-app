@@ -5,6 +5,7 @@ import axios from "axios";
 import TrendingItem from "./trending-item";
 import { findAllPosts } from "../../services/posts/posts-service";
 import "./index.css";
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 const TrendingList = () => {
   // const {posts, loading, error} = useSelector(state => state.postsData);
@@ -19,7 +20,7 @@ const TrendingList = () => {
   const fetchUserProfile = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/users/profile",
+        `${API_BASE}/users/profile`,
         { withCredentials: true }
       );
       if (response.data.city && response.data.state) {

@@ -1,7 +1,7 @@
 
 import axios from "axios";
 
-const COMMENT_API = "http://localhost:4000/api/comments";
+const COMMENT_API = process.env.REACT_APP_API_BASE;
 
 export const findAllComments = async () => {
     const response = await axios.get(`${COMMENT_API}/all`, { withCredentials: true });

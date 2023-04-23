@@ -15,7 +15,7 @@ const HeadBar = () => {
 
   const handleLogout = async () => {
     try {
-      // await axios.post('http://localhost:4000/api/users/logout', {}, { withCredentials: true });
+
       await dispatch(logoutThunk());
       // Navigate to the home page after successful logout
       navigate("/home");

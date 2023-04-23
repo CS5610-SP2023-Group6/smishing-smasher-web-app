@@ -6,7 +6,7 @@ import { isLoggedInService } from "../services/auth/is-logged-in";
 import { updatePost } from "../services/posts/posts-service";
 import { Link } from "react-router-dom";
 import "./post.css";
-
+const API_BASE = process.env.REACT_APP_API_BASE;
 const PostComponent = ({ post }) => {
   const [showCommentInput, setShowCommentInput] = useState(false);
   const [authorName, setAuthorName] = useState("");
@@ -30,13 +30,13 @@ const PostComponent = ({ post }) => {
     const getAvatar = async () => {
       const api = axios.create({ withCredentials: true });
       const res = await api.get(
-        `http://localhost:4000/api/users/id/${post.authorID}`
+        `${API_BASE}/users/id/${post.authorID}`
       );
       if (res.data.profilePicture !== undefined) {
-        setAvatar(`http://localhost:4000/api/files/${res.data.profilePicture}`);
+        setAvatar(`${API_BASE}/files/${res.data.profilePicture}`);
         setAuthorName(res.data.nickname);
       } else {
-        setAvatar(`http://localhost:4000/api/files/6442a2dc66674f9ee9472690`);
+        setAvatar(`${API_BASE}/files/6442a2dc66674f9ee9472690`);
       }
     };
 
@@ -57,7 +57,7 @@ const PostComponent = ({ post }) => {
         text: commentText,
       };
       const response = await axios.post(
-        "http://localhost:4000/api/comments/create",
+        `${API_BASE}/comments/create`,
         newComment
       );
       console.log(response.data);

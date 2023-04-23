@@ -7,7 +7,7 @@ import History from "../profile-filter";
 import HeadBar from "../home/head-bar";
 import "./index.css";
 // import { createPost, fetchCurrentUserProfile } from '../services'; // Import your functions
-
+const API_BASE = process.env.REACT_APP_API_BASE;
 const UpdateComponent = (post) => {
   console.log(post.post);
   const [title, setTitle] = useState(post.post.title || "");
@@ -42,7 +42,7 @@ const UpdateComponent = (post) => {
     };
 
     const api = axios.create({ withCredentials: true });
-    const updatedPost = await api.post("http://localhost:4000/api/posts/update", newpost);
+    const updatedPost = await api.post(`${API_BASE}/posts/update`, newpost);
     if (!updatedPost) {
       console.error("Error updating post");
       return;

@@ -5,7 +5,7 @@ import { fetchCurrentUserProfile } from "../services/cur-user-service";
 import { isLoggedInService } from "../services/auth/is-logged-in";
 import axios from "axios";
 import { editSearch } from "../reducers/search-reducer";
-
+const API_BASE = process.env.REACT_APP_API_BASE;
 const SearchBar = () => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const SearchBar = () => {
     const isLoggedIn = await isLoggedInService();
     if (isLoggedIn) {
         const api = axios.create({ withCredentials: true });
-        const addHistory = await api.post("http://localhost:4000/api/users/search", {
+        const addHistory = await api.post(`${API_BASE}/users/search`, {
             text: text,
             createdAt: Date.now()
         })

@@ -3,6 +3,7 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 import PostItem from "./post-item";
 import HeadBar from "../home/head-bar";
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 const PostDetail = () => {
     const {postId} = useParams();
@@ -13,7 +14,7 @@ const PostDetail = () => {
     useEffect(() => {
         const fetchPost = async (postId) => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/posts/id/${postId}`);
+                const response = await axios.get(`${API_BASE}/posts/id/${postId}`);
                 console.log(response.data);
                 setPost(response.data);
                 setLoading(false);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-
+const API_BASE = process.env.REACT_APP_API_BASE;
 const EditProfile = () => {
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const EditProfile = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/users/profile",
+          `${API_BASE}/users/profile`,
           { withCredentials: true }
         );
         const user = response.data;
@@ -63,7 +63,7 @@ const EditProfile = () => {
 
     try {
       await axios.post(
-        "http://localhost:4000/api/users/edit",
+        `${API_BASE}/users/edit`,
         {
           nickname,
           email,

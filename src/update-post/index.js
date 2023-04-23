@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { useState } from "react";
 import { useEffect } from "react";
 import UpdateComponent from "./component";
-
+const API_BASE = process.env.REACT_APP_API_BASE;
 const EditPost = () => {
   const { pid } = useParams();
   const [post, setPost] = useState({});
@@ -11,7 +11,7 @@ const EditPost = () => {
   useEffect(() => {
     const fectchData = async () => {
       const api = axios.create({ withCredentials: true });
-      const res = await api.get(`http://localhost:4000/api/posts/id/${pid}`);
+      const res = await api.get(`${API_BASE}/posts/id/${pid}`);
       setPost(res.data);
       console.log(post);
     };

@@ -12,7 +12,7 @@ import { fetchCurrentUserProfile } from "../services/cur-user-service";
 import { findUserById } from "../services/user-service";
 import { updatePost } from "../services/posts/posts-service";
 import "./index.css";
-
+const API_BASE = process.env.REACT_APP_API_BASE;
 const CommentItem = ({ commentId }) => {
   const [comment, setComment] = useState(null);
   const [author, setAuthor] = useState("");
@@ -45,14 +45,14 @@ const CommentItem = ({ commentId }) => {
 
       const api = axios.create({ withCredentials: true });
       const res = await api.get(
-        `http://localhost:4000/api/users/id/${cmt.authorID}`
+        `${API_BASE}/users/id/${cmt.authorID}`
       );
 
       if (res.data.profilePicture !== undefined) {
-        setAvatar(`http://localhost:4000/api/files/${res.data.profilePicture}`);
+        setAvatar(`${API_BASE}/files/${res.data.profilePicture}`);
         setAuthor(res.data.nickname);
       } else {
-        setAvatar(`http://localhost:4000/api/files/6442a2dc66674f9ee9472690`);
+        setAvatar(`${API_BASE}/files/6442a2dc66674f9ee9472690`);
       }
 
       setLikesCount(cmt.thumbUp);
