@@ -19,7 +19,7 @@ const NavigationBar = () => {
   const EditAdmin = () => {
     return (
       <Link
-        to={`${pathname}/editadmin`}
+        to={`${pathname}/editrole`}
         className={`list-group-item ${active === "explore" ? "active" : ""}`}
       >
         Edit Admins
