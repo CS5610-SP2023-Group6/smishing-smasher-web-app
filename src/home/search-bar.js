@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { fetchCurrentUserProfile } from "../services/cur-user-service";
+import { isLoggedInService } from "../services/auth/is-logged-in";
 import axios from "axios";
 import { editSearch } from "../reducers/search-reducer";
 
@@ -15,7 +16,8 @@ const SearchBar = () => {
     };
     dispatch(editSearch(newSearch));
     const userProfile = await fetchCurrentUserProfile();
-    if (userProfile) {
+    const isLoggedIn = await isLoggedInService();
+    if (isLoggedIn) {
         const api = axios.create({ withCredentials: true });
         const addHistory = await api.post("http://localhost:4000/api/users/search", {
             text: text,
