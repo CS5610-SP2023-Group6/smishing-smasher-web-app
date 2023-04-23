@@ -1,10 +1,25 @@
-import {useDispatch} from "react-redux";
-import PostDetail from "../../post-detail";
-import React from "react";
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
+const TrendingItem = ({ post }) => {
+    const [avatar, setAvatar] = useState("");
 
-const TrendingItem = ({post}) => {
+    useEffect(() => {
+        const getAvatar = async () => {
+            const api = axios.create({ withCredentials: true });
+            const res = await api.get(
+                `http://localhost:4000/api/users/id/${post.authorID}`
+            );
+            if (res.data.profilePicture !== undefined) {
+                setAvatar(`http://localhost:4000/api/files/${res.data.profilePicture}`);
+            } else {
+                setAvatar(`http://localhost:4000/api/files/6442a2dc66674f9ee9472690`);
+            }
+        };
+
+        getAvatar();
+    }, []);
 
     return (
         <Link to={`/post/${post._id}`} className="text-decoration-none text-reset">
@@ -14,15 +29,15 @@ const TrendingItem = ({post}) => {
                         <img
                             className="float-end rounded-pill"
                             height="60px"
-                            // src={post.photos[0]}
+                            src={avatar}
                         />
                     </div>
                     <div className="col-10">
                         <div>
                             <span className="fw-bolder">{post.title} </span>
                             <span className="text-secondary">
-              {post.city}, {post.state} - {post.createdAt}
-            </span>
+                {post.city}, {post.state} - {post.createdAt}
+              </span>
                             <i className="bi bi-x-lg float-end"></i>
                         </div>
                         <div className="row text-muted">
@@ -30,18 +45,13 @@ const TrendingItem = ({post}) => {
                                 <i className="fa fa-tag"></i> {post.tags}
                             </div>
                         </div>
-
                         <div className="mb-1">{post.description}</div>
                         <div className="mb-1">{post.spamText}</div>
-
-
                     </div>
                 </div>
-
             </li>
         </Link>
     );
-
-
 };
+
 export default TrendingItem;

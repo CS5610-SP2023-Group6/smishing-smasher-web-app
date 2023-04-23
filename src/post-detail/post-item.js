@@ -6,7 +6,7 @@ import {isLoggedInService} from "../services/auth/is-logged-in";
 import {updatePost} from "../services/posts/posts-service";
 import {createComment} from "../services/comment-service";
 import {fetchCurrentUserProfile} from "../services/cur-user-service";
-
+import {findUserById} from "../services/user-service";
 const PostItem = ({post}) => {
     const [showCommentInput, setShowCommentInput] = useState(false);
     const [commentText, setCommentText] = useState("");
@@ -19,16 +19,35 @@ const PostItem = ({post}) => {
     const navigate = useNavigate();
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState(null);
+    const [postAuthor, setPostAuthor] = useState(null);
+    const [avatar, setAvatar] = useState("");
     useEffect(() => {
+        const getAvatar = async () => {
+            const api = axios.create({ withCredentials: true });
+            const res = await api.get(
+                `http://localhost:4000/api/users/id/${post.authorID}`
+            );
+            if (res.data.profilePicture !== undefined) {
+                setAvatar(`http://localhost:4000/api/files/${res.data.profilePicture}`);
+            } else {
+                setAvatar(`http://localhost:4000/api/files/6442a2dc66674f9ee9472690`);
+            }
+        };
         const checkLoginStatus = async () => {
             const isLoggedIn = await isLoggedInService();
             setLoggedIn(isLoggedIn);
             const curUser = await fetchCurrentUserProfile();
             setUser(curUser);
+            const curAuthor = await findUserById(post.authorID);
+            console.log(post.authorID)
+            console.log("pitem curauthor",curAuthor)
+            setPostAuthor(curAuthor);
+            console.log("postAuthor", postAuthor);
         };
 
 
         checkLoginStatus();
+        getAvatar();
     }, []);
 
     const handleButtonClick = () => {
@@ -48,6 +67,7 @@ const PostItem = ({post}) => {
             console.log("newComment", newComment);
             const response = await createComment(newComment);
             console.log(response.data);
+
         } catch (error) {
             console.error("Error creating comment:", error);
         }
@@ -100,7 +120,7 @@ const PostItem = ({post}) => {
                 <img
                     className="float-end rounded-pill"
                     height="60px"
-                    // src={post.photos[0]}
+                    src={avatar}
                 />
             </div>
             <div className="col-10">
