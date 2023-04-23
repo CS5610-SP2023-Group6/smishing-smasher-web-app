@@ -57,6 +57,9 @@ const HeadBar = () => {
           )}
           {isLoggedIn && (
             <>
+              <Link to="/createpost" className="btn btn-primary me-2 fw-bold">
+                New Post
+              </Link>
               <Link
                 to={`/user/${currentUserProfile?._id}`}
                 className="btn btn-light me-2"
@@ -65,9 +68,6 @@ const HeadBar = () => {
               </Link>
               <Link to="/history" className="btn btn-light me-2">
                 History
-              </Link>
-              <Link to="/following" className="btn btn-light me-2">
-                Following
               </Link>
               <div className="btn btn-light me-2" onClick={handleLogout}>
                 Log Out

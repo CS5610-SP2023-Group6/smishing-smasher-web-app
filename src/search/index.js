@@ -36,7 +36,13 @@ const Search = () => {
       <HeadBar />
       <SearchBar />
       <div>
-        {posts.map((post) => (
+        {posts.sort((a, b) => {
+            const aT = new Date(a.createdAt);
+            const bT = new Date(b.createdAt);
+            console.log(aT);
+            console.log(bT);
+            return bT - aT;
+          }).map((post) => (
           <PostComponent post={post} />
         ))}
       </div>
