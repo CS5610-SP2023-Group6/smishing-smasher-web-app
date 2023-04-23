@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = 'process.env.REACT_APP_API_BASE';
+const API_BASE = process.env.REACT_APP_API_BASE;
 const POST_API = `${API_BASE}/posts`;
 console.log(POST_API);
 
