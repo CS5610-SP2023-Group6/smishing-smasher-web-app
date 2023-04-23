@@ -48,15 +48,13 @@ const TrendingItem = ({ post }) => {
               <i className="bi bi-x-lg float-end"></i>
             </div>
             <div className="row text-muted">
-              <div className="col-2">
-                <i className="fa fa-tag"></i> {post.tags}
-              </div>
             </div>
             <div className="mb-1">{post.description}</div>
             <div className="mb-1">{post.spamText}</div>
           </div>
         </div>
       </li>
+      <hr />
     </Link>
   );
 };

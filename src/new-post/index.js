@@ -44,7 +44,7 @@ const CreatePost = () => {
       console.error("Error creating post");
       return;
     }
-    navigator("/home");
+    navigate("/home");
 
     // Add the new post ID to the user's posts array
     // userProfile.posts.push(createdPost._id);

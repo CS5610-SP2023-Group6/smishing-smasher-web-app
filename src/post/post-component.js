@@ -5,9 +5,11 @@ import { useAuth } from "../login/auth-context";
 import { isLoggedInService } from "../services/auth/is-logged-in";
 import { updatePost } from "../services/posts/posts-service";
 import { Link } from "react-router-dom";
+import "./post.css";
 
 const PostComponent = ({ post }) => {
   const [showCommentInput, setShowCommentInput] = useState(false);
+  const [authorName, setAuthorName] = useState("");
   const [commentText, setCommentText] = useState("");
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
@@ -32,10 +34,10 @@ const PostComponent = ({ post }) => {
       );
       if (res.data.profilePicture !== undefined) {
         setAvatar(`http://localhost:4000/api/files/${res.data.profilePicture}`);
+        setAuthorName(res.data.nickname);
       } else {
         setAvatar(`http://localhost:4000/api/files/6442a2dc66674f9ee9472690`);
       }
-      console.log(avatar);
     };
 
     checkLoginStatus();
@@ -106,68 +108,81 @@ const PostComponent = ({ post }) => {
   };
 
   return (
-    <Link to={`/post/${post._id}`} className="text-decoration-none text-reset">
-      <li className="list-group-item">
-        <div className="row">
-          <div className="col-2">
-            <img
-              className="float-end rounded-pill"
-              height="60px"
-              src={avatar}
-            />
-          </div>
-          <div className="col-10">
-            <div>
-              <span className="fw-bolder">{post.title} </span>
-              <span className="text-secondary">
-                {post.city}, {post.state} - {time.getFullYear()}-{time.getMonth()}-{time.getDate()}&nbsp;{time.getHours()}:{time.getMinutes()}:{time.getSeconds()}
-              </span>
-              <i className="bi bi-x-lg float-end"></i>
+    <div className="wd-post m-3 border border-1 p-2 rounded">
+      <Link
+        to={`/post/${post._id}`}
+        className="text-decoration-none text-reset"
+      >
+        <li className="list-group-item">
+          <div className="row">
+            <div className="col-2">
+              <img
+                className="float-end rounded-pill"
+                height="40px"
+                src={avatar}
+              />
             </div>
-            <div className="row text-muted">
-              <div className="col-2">
-                <i className="fa fa-tag"></i> {post.tags}
+            <div className="wd-user col-3">
+              <div>
+                <span className="fw-bolder">{authorName} </span>
               </div>
-            </div>
-
-            <div className="mb-1">{post.description}</div>
-            <div className="mb-1">{post.spamText}</div>
-
-            <div className="row text-muted">
-              <div className="col-2">
-                <i className="fa fa-comment" onClick={handleButtonClick}></i>{" "}
-                {post.comments.length}
-              </div>
-              <div className="col-2">
-                <i
-                  className={`far fa-thumbs-up${liked ? " text-primary" : ""}`}
-                  onClick={() => updateClick("like")}
-                ></i>
-                Likes: {likesCount}
-              </div>
-              <div className="col-2">
-                <i
-                  className={`far fa-thumbs-down${
-                    disliked ? " text-primary" : ""
-                  }`}
-                  onClick={() => updateClick("dislike")}
-                ></i>
-                Unlikes: {dislikesCount}
-              </div>
-              <div className="col-2">
-                <i
-                  className={`fa fa-envelope-open-text${
-                    received ? " text-primary" : ""
-                  }`}
-                  onClick={() => updateClick("received")}
-                ></i>
-                Received: {receivedCount}
+              <div>
+                <span className="text-secondary">
+                  {post.city}, {post.state} - {time.getFullYear()}-
+                  {time.getMonth()}-{time.getDate()}&nbsp;{time.getHours()}:
+                  {time.getMinutes()}:{time.getSeconds()}
+                </span>
               </div>
             </div>
           </div>
-        </div>
-      </li>
-    </Link>
+          <div className="row">
+            <div className="col-2"></div>
+            <div className="col-8">
+            <div className="col-6 fw-bold fs-3">
+                {post.title}
+              </div>
+              <span className="wd-phone mb-1 p-1 rounded fw-bold">{post.phone}</span>
+              <div className="wd-spam my-1 p-1 rounded">{post.spamText}</div>
+              <div className="mb-1">{post.description}</div>
+
+              <div className="row text-muted">
+                <div className="col-2">
+                  <i className="fa fa-comment" onClick={handleButtonClick}></i>{" "}
+                  {post.comments.length}
+                </div>
+                <div className="col-2">
+                  <i
+                    className={`far fa-thumbs-up${
+                      liked ? " text-primary" : ""
+                    }`}
+                    onClick={() => updateClick("like")}
+                  ></i>
+                  Likes: {likesCount}
+                </div>
+                <div className="col-2">
+                  <i
+                    className={`far fa-thumbs-down${
+                      disliked ? " text-primary" : ""
+                    }`}
+                    onClick={() => updateClick("dislike")}
+                  ></i>
+                  Unlikes: {dislikesCount}
+                </div>
+                <div className="col-2">
+                  <i
+                    className={`fa fa-envelope-open-text${
+                      received ? " text-primary" : ""
+                    }`}
+                    onClick={() => updateClick("received")}
+                  ></i>
+                  Received: {receivedCount}
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </Link>
+    </div>
   );
 };
 
