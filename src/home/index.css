@@ -1,0 +1,12 @@
+.wd-search {
+  display: flex;
+  justify-content: center;
+}
+
+.wd-button {
+  font-size: 2rem;
+  text-decoration: n;
+  background-color: black;
+  padding-left: 4rem;
+  padding-right: 4rem;
+}

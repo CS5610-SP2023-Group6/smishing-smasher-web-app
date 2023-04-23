@@ -18,6 +18,7 @@ const PostComponent = ({ post }) => {
   const [avatar, setAvatar] = useState("");
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
+  const time = new Date(post.createdAt);
   useEffect(() => {
     const checkLoginStatus = async () => {
       const isLoggedIn = await isLoggedInService();
@@ -119,7 +120,7 @@ const PostComponent = ({ post }) => {
             <div>
               <span className="fw-bolder">{post.title} </span>
               <span className="text-secondary">
-                {post.city}, {post.state} - {post.createdAt}
+                {post.city}, {post.state} - {time.getFullYear()}-{time.getMonth()}-{time.getDate()}&nbsp;{time.getHours()}:{time.getMinutes()}:{time.getSeconds()}
               </span>
               <i className="bi bi-x-lg float-end"></i>
             </div>

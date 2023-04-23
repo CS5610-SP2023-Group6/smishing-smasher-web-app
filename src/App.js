@@ -10,6 +10,7 @@ import PostDetail from "./post-detail";
 import EditProfile from "./profile/edit-profile";
 import CreatePost from "./new-post";
 import Search from "./search";
+import History from "./history";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/edit-profile/:uid" element={<EditProfile/>}/>
                     <Route path="/createpost" element={<CreatePost/>}/>
                     <Route path="/search" element={<Search/>}/>
+                    <Route path="/history" element={<History/>}/>
                 </Routes>
             </div>
             <Routes>
