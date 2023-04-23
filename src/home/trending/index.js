@@ -75,31 +75,34 @@ const TrendingList = () => {
   // }
 
   return (
-    <div className="wd-bg border border-2 p-3 rounded">
+    <div className="wd-bg border border-2 p-5 rounded">
       <div className="row">
-        <div className="col-md-9">
-          <h2>
+        <div className="col-md-4">
+          <h3>
             Top smishing at{" "}
             <span className="text-danger">
               {userLocation ? userLocation : "your location"}
             </span>
-          </h2>
-          <ol>
-            {localPosts.map((post) => (
-              <li key={post.id}>
-                {post.text} <span className="text-warning">{post.time}</span>
-              </li>
+          </h3>
+          {USAposts.sort((a, b) => {
+            const aT = new Date(a.createdAt);
+            const bT = new Date(b.createdAt);
+            console.log(aT);
+            console.log(bT);
+            return bT - aT;
+          })
+            .filter((post) => ((post.city) + ", " + (post.state) === userLocation))
+            .slice(0, 5)
+            .map((post) => (
+              <TrendingItem post={post} />
             ))}
-          </ol>
+            ...
         </div>
-        <div className="col-md-3">
-          <h2>
+        <div className="col-md-4"></div>
+        <div className="col-md-4">
+          <h3>
             Top smishing in <span className="text-danger"> USA</span>
-          </h2>
-
-          {/*{USAposts.map(post => (*/}
-          {/*    <li key={post.id}>{post.id}{post.text} <span className="text-warning">{post.time}</span></li>*/}
-          {/*))}*/}
+          </h3>
           {USAposts.sort((a, b) => {
             const aT = new Date(a.createdAt);
             const bT = new Date(b.createdAt);
@@ -111,8 +114,8 @@ const TrendingList = () => {
             .map((post) => (
               <TrendingItem post={post} />
             ))}
+            ...
         </div>
-        <div className="col-md-4"></div>
       </div>
     </div>
   );
