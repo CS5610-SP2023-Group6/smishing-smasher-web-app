@@ -13,7 +13,7 @@ import axios from "axios";
 import "./index.css";
 
 const store = configureStore({ reducer: { postsData: postsReducer } });
-
+const API_BASE = process.env.REACT_APP_API_BASE;
 const Index = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -21,7 +21,7 @@ const Index = () => {
     const fetchUserProfile = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/users/profile",
+          `${API_BASE}/users/profile`,
           { withCredentials: true }
         );
         if (response.data.city && response.data.state) {

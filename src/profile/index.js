@@ -10,6 +10,7 @@ import "../vendors/bootstrap/css/bootstrap.min.css";
 import CommentItem from "../comment/profile-comment";
 import {useLocation} from "react-router";
 
+const API_BASE = process.env.REACT_APP_API_BASE;
 const UserProfile = () => {
     const {userId} = useParams(); // Destructure userId from useParams
     const [followed, setFollowed] = useState(false);
@@ -30,7 +31,7 @@ const UserProfile = () => {
     const fetchCurUserId = async (userId) => {
         try {
             const response = await axios.get(
-                "http://localhost:4000/api/users/profile",
+                `${API_BASE}/users/profile`,
                 {withCredentials: true}
             );
             if (response.data._id === userId) {
@@ -47,7 +48,7 @@ const UserProfile = () => {
     const fetchUser = async (userId) => {
         try {
             const response = await axios.get(
-                `http://localhost:4000/api/users/id/${userId}`
+                `${API_BASE}/users/id/${userId}`
             );
             console.log("response", response.data);
             setUser(response.data);
@@ -64,13 +65,13 @@ const UserProfile = () => {
     const handleOnClickFollow = async () => {
         if (!followed) {
             const api = axios.create({withCredentials: true});
-            const res = api.post("http://localhost:4000/api/users/following", {
+            const res = api.post(`${API_BASE}/users/following`, {
                 _id: userId,
             });
             setFollowed(true);
         } else {
             const api = axios.create({withCredentials: true});
-            const res = api.post("http://localhost:4000/api/users/unfollowing", {
+            const res = api.post(`${API_BASE}/users/unfollowing`, {
                 _id: userId,
             });
             setFollowed(false);
@@ -135,7 +136,7 @@ const UserProfile = () => {
                         <img
                             className="float-end rounded-pill"
                             height="60px"
-                            src={`http://localhost:4000/api/files/${avatar}`}
+                            src={`${API_BASE}/files/${avatar}`}
                         />
                     </div>
                     <div className="col ">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 const TrendingItem = ({ post }) => {
   const [avatar, setAvatar] = useState("");
@@ -10,12 +11,12 @@ const TrendingItem = ({ post }) => {
     const getAvatar = async () => {
       const api = axios.create({ withCredentials: true });
       const res = await api.get(
-        `http://localhost:4000/api/users/id/${post.authorID}`
+        `${API_BASE}/users/id/${post.authorID}`
       );
       if (res.data.profilePicture !== undefined) {
-        setAvatar(`http://localhost:4000/api/files/${res.data.profilePicture}`);
+        setAvatar(`${API_BASE}/files/${res.data.profilePicture}`);
       } else {
-        setAvatar(`http://localhost:4000/api/files/6442a2dc66674f9ee9472690`);
+        setAvatar(`${API_BASE}/files/6442a2dc66674f9ee9472690`);
       }
     };
 
