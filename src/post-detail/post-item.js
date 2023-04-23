@@ -38,7 +38,7 @@ const PostItem = ({ post }) => {
         `${API_BASE}/users/id/${post.authorID}`
       );
       if (res.data.profilePicture !== undefined) {
-        setAvatar(`${A}/files/${res.data.profilePicture}`);
+        setAvatar(`${API_BASE}/files/${res.data.profilePicture}`);
         setAuthorName(res.data.nickname);
         const curUser = await fetchCurrentUserProfile();
         setRole(curUser.role);
